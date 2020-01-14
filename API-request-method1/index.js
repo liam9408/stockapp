@@ -3,12 +3,15 @@ var xhr = new XMLHttpRequest();
 
 var apiKey = 'O00QUABRNGS34O4Z'
 var symbol = 'AMZN'
+var timeSeries = 'TIME_SERIES_INTRADAY'
+// var timeSeries = 'TIME_SERIES_DAILY'
+// var timeSeries = 'TIME_SERIES_WEEKLY'
 
 function getStock(){
     let http = new XMLHttpRequest();
 
     // Calling the API
-    http.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${apiKey}`);
+    http.open('GET', `https://www.alphavantage.co/query?function=${timeSeries}&symbol=${symbol}&interval=5min&apikey=${apiKey}`);
 
     http.onreadystatechange = function () {
         if (http.readyState !== XMLHttpRequest.DONE) {
@@ -26,6 +29,16 @@ function getStock(){
         // // This will give you Stock Symbol, Time Zone etc
         console.log(data['Time Series (5min)']);
 
+        var avgPrice = 1880;
+        var curShares = 1000;
+        var curValue = data['Time Series (5min)']['2020-01-13 16:00:00']['4. close']
+
+        // With calculation of profit loss
+        console.log(' -------- Profit/Loss -------- ')
+
+        var profLoss = (curValue - avgPrice) * curShares
+        console.log(profLoss)
+
         } 
         else {
             console.log('error occurred' + http.status);
@@ -35,5 +48,6 @@ function getStock(){
 }
 
 getStock()
+
 
 
