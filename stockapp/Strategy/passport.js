@@ -17,7 +17,7 @@ module.exports = (passport) => {
     passport.use('local-login', new LocalStrategy(
         async (email, password, done) => {
             try{
-                let users = await knex('users').where({email:email})
+                let users = await knex('users').where({email:email});
                 if(users.length == 0){
                     return done(null, false, { message: 'Incorrect credentials' });
                 }
@@ -34,22 +34,27 @@ module.exports = (passport) => {
         }
     ));
 
-    passport.use('local-signup', new LocalStrategy(
-        async (email, password, done) => {
-            try{
+    passport.use('local-signup', new LocalStrategy({
+        email: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+        async (req, email, password, done) => {
+            try {
                 let users = await knex('users').where({email:email});
                 if (users.length > 0) {
                     return done(null, false, { message: 'Email already taken' });
                 }
                 let hash = await bcrypt.hashPassword(password)
                 const newUser = {
+                    name:req.body.name,
                     email:email,
                     password: hash
                 };
                 let userId = await knex('users').insert(newUser).returning('id');
                 newUser.id = userId[0];
                 done(null,newUser);
-            }catch(err){
+            } catch(err) {
                 done(err);
             }
     

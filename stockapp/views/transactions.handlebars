@@ -1,0 +1,35 @@
+
+
+    <div>
+        <label>Action:</label>
+        <select id="action" name="action">
+        <option value="buy">buy</option>
+        <option value="sell">sell</option>
+        </select>
+    </div>
+    <div>
+        <label>Stock:</label>
+        <input id="stock" type="text" name="stock" />
+    </div>
+    <div>
+        <label>Portfolio:</label>
+        <select id="portfolio" name="portfolio">
+        {{#each data}}
+        <option value="{{name}}">{{name}}</option>
+        {{/each}}
+        </select>
+    </div>
+    <div>
+        <label>Price:</label>
+        <input id="price" type="number" name="price" />
+    </div>
+    <div>
+        <label>Amount:</label>
+        <input id="amount" type="number" name="amount" />
+    </div>
+    <div>
+        <button id='submit'>Submit</button>
+    </div>
+
+
+

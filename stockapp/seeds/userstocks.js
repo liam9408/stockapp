@@ -7,12 +7,12 @@ exports.seed = function(knex) {
 
       // Inserts seed entries
       return knex('userstocks').insert([
-        {user_id: 1, stocks_id: 1},
-        {user_id: 1, stocks_id: 2},
-        {user_id: 1, stocks_id: 3},
-        {user_id: 2, stocks_id: 1},
-        {user_id: 2, stocks_id: 2},
-        {user_id: 2, stocks_id: 3},
+        {user_id: 1, stocks_symbol: 'ADVD'},
+        {user_id: 1, stocks_symbol: 'QWER'},
+        {user_id: 1, stocks_symbol: 'JKLO'},
+        {user_id: 2, stocks_symbol: 'ADVD'},
+        {user_id: 2, stocks_symbol: 'QWER'},
+        {user_id: 2, stocks_symbol: 'JKLO'},
       ]);
     });
 };

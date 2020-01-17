@@ -2,9 +2,9 @@
 
 <h3>Portfolio of {{user}}</h3>
 
-{{#each holdings.key}}
-    <h4>{{name}}</h4>
-    <h4>{{symbol}}</h4>
+{{#each portfolio}}
+    <a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a>
 {{/each}}
+
 
         

@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+  }
+  .logo {
+    padding: 10px;
+    float: left;
+    margin-left: 8px;
+  }
+  .logo h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 40px;
+    overflow: auto;
+    color: white;
+  }
+  .logo a {
+    text-decoration: none;
+  }
+  /*#x {
+  }*/
+  
+  .logo img {
+    width: 40px;
+    position: absolute;
+    margin-top: -44px;
+    margin-left: 165px;
+    filter: brightness(1.7);
+  }
+  #menu {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    cursor: pointer;
+    display: none;
+  }
+  #close {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    cursor: pointer;
+    display: none;
+  }
+  nav {
+    background-image: radial-gradient(circle at 4% -18%,green,white 47%,green);
+  }
+  nav:after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+  nav ul {
+    float: right;
+    padding: 20px;
+  }
+  nav ul li {
+    list-style: none;
+    padding: 10px;
+    float: left;
+    font-family: 'Quicksand', Helvetica, sans-serif;
+    text-align: center;
+    font-size: 18px;
+  }
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s linear;
+  }
+  nav ul li a:hover {
+    border-bottom: 2px solid white;
+  }
+  @media screen and (max-width: 670px) {
+    .logo {
+      margin-top: -5px;
+      margin-left: -3px;
+      border-bottom: none;
+    }
+    .logo img {
+       width: 40px;
+       position: right;
+       margin-top: -44px;
+       margin-left: 165px;
+       filter: brightness(1.1);
+     }
+    .responsive-border-bottom {
+      width: 100%;
+      height: 2.5px;
+      background-color: transparent;
+      position: fixed;
+      margin-top: 75px;
+    }
+    .logo h1 {
+      color: black;
+    }
+    nav {
+      width: 100%;
+      height: 100vh;
+      display: none;
+      background-image: radial-gradient(circle at 4% -18%,#ffffff,#ffffff 47%,#ffffff);
+    }
+    nav ul {
+      padding-top: 20px;
+      display: block;
+      width: 100%;
+      margin: auto;
+    }
+    .nav-expanded {
+      display: block;
+    }
+    nav ul li a {
+      color: black;
+    }
+    nav ul li {
+      float: none;
+      border-bottom: 2px solid rgb(98, 139, 90);
+    }
+    nav ul li:last-child {
+      border-bottom: none;
+    }
+    #menu {
+      display: block;
+    }
+  }
+  /*Navigation Bar End*/
+  
+  /*Header Start*/
+    header {
+      width: 100%;
+      height: 50vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)), url('https://s.yimg.com/ny/api/res/1.2/CmRN2qL2JxnF4WctaCboUA--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/http://media.zenfs.com/en-US/homerun/motleyfool.com/fc4801baa943d9526e81f45bd0473ea5');
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+  header h1 {
+    color: white;
+    font-family: 'Josefin Sans', 'Roboto', Helvetica, sans-serif;
+    padding: 10px;
+    font-size: 50px;
+    text-align: center;
+     margin-bottom: 8px;
+     margin-top: 60px;
+  }
+  header p {
+    color: white;
+    width: 500px;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    text-align: center;
+    font-size: 17px;
+     margin-bottom: 8px;
+  }
+  header button {
+    border: 2px solid whitesmoke;
+    padding: 10px;
+    width: 155px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: whitesmoke;
+    transition: all 0.2s linear;
+    border-radius: 500px;
+    margin-top: 20px;
+    font-size: 19px;
+     margin-bottom: 60px;
+    cursor: pointer;
+    background: transparent;
+  }
+  header button:hover, header button:active {
+    background-color: green;
+    color: white;
+  }
+  @media screen and (max-width: 670px) {
+    header {
+      width: 100%;
+       height: auto;
+       border-top: 3.3px solid green;
+    }
+    header h1 {
+      width: 90%;
+      font-size: 38px;
+       line-height: 43px;
+      margin-bottom: 8px;
+       margin-top: 70px;
+    }
+    header p {
+      width: 80%;
+      font-size: 16.5px;
+      margin-bottom: 8px;
+    }
+     header button {
+        margin-bottom: 70px;
+     }
+  }
+  /*Header End*/
+  
+  
+  /*Stock Widgets*/
+  .stock-widgets h1 {
+    font-family: 'Josefin Sans', 'Muli', 'Nunito', Helvetica, sans-serif;
+    font-size: 45px;
+  }
+  #tv-medium-widget-57006, #tv-medium-widget-2532c , #tv-medium-widget-8a25c{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 670px) {
+     .stock-widgets h1 {
+        font-size: 38px;
+     }
+  }
+  /*Stock Widgets*/
+  
+  
+  /*Footer*/
+  footer {
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 30%;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    background-image: radial-gradient(circle at 4% -18%,green,white 47%,green);
+  }
+  .footer-logo {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: relative
+  
+  }
+  
+  .footer-logo h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 40px;
+    color: white;
+    display: flex;
+    flex-direction: relative;
+  }
+  .footer-logo img {
+    width: 80px;
+    position: relative;
+    margin-top: -50px;
+    margin-left: 50px;
+    filter: brightness(1.7);
+  }
+  @media screen and (max-width: 720px) {
+    .footer-social {
+      display: flex;
+      flex-direction: relative;
+    }
+   /* .footer-navigation {
+      margin-top: 50px;
+    }*/
+    footer {
+      flex-basis: 30%;
+      flex-direction: row;
+    }
+     .footer-logo {
+      display: flex;
+      flex-direction:row;
+      justify-content: center;
+      align-content: center;
+      align-items: relative;
+      align-self: relative;
+     }
+  }\

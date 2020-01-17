@@ -20,7 +20,7 @@ module.exports = (passport) => {
         profileFields: ['id', 'email', 'name', 'gender', 'displayName', 'profileUrl']
     }, async (accessToken, refreshToken, profile, done) => {
 
-        console.log(profile);
+        // console.log(profile);
         // checking our database to verify whether the user has previously created an account with us
 
         let userResult = await knex('users').where({ facebookID: profile.id });

@@ -26,11 +26,6 @@ module.exports = (express) => {
         res.send('You are not logged in!');
     });
     
-    // anyone can access this route
-    // router.get('/', (req, res) => {
-    //     res.render('landing');
-    // });
-    
     // going to signup page
     router.get('/signup', (req, res) => {
         res.render('signup');
