@@ -35,11 +35,7 @@ app.set('view engine', 'handlebars');
 setupPassport(app);
 
 // using the routers
-<<<<<<< HEAD
 app.use('/stocks', (new StockRouter(stockService)).router());
-=======
-app.use('/dashboard', (new StockRouter(stockService)).router());
->>>>>>> b920f4fae219c2a9cdfc204cc8b453baf0ea0f4a
 app.use('/', AuthRouter);
 app.use('/', ViewRouter);
 
@@ -49,8 +45,4 @@ const options = {
 };
 
 https.createServer(options, app).listen(port);
-<<<<<<< HEAD
 console.log('running at 3030')
-=======
-console.log('running at 3030')
->>>>>>> b920f4fae219c2a9cdfc204cc8b453baf0ea0f4a
