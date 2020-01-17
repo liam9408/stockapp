@@ -1,0 +1,22 @@
+
+<h1>Holdings</h1>
+
+<h3>Holdings of {{portfolio}}</h3>
+
+{{!-- {{#each holdings}}
+    <h4>{{symbol}}</h4>
+{{/each}} --}}
+
+<table class="tablesorter">
+    <thead>
+        <th>Stock</th>
+        <th>Price</th>
+        <th>Change</th>
+        <th>%</th>
+    </thead>
+    <tbody>
+            {{#each holdings}}
+            <tr class="stock increase"><td class="name">{{symbol}}</td><td class="value">test</td><td class="change">test</td><td class="percentage">test</td></tr>
+            {{/each}}
+    </tbody>
+</table>
