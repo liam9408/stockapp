@@ -35,7 +35,6 @@ $(()=>{
                 console.log(result)
             }
         })
-        // console.log(stock, portfolio, action, amount, price)
         location.reload()
     })
 })

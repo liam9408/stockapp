@@ -123,13 +123,11 @@ module.exports = (express) => {
             res.status(500).send(err)
         });
     });
-    let counter  = 0
+
+    // problematic route
     router.get('/:stock/:id/:portfolio', isLoggedIn, (req, res) => {
         stockService.getPortfolioID(req.params.portfolio).then((data) => {
             var porfId = data
-            counter++
-            console.log("router: I'm called "+ counter +" times")
-            console.log(data, '<<<<< data from view')
             
             // finally adding the transaction into our database
             return stockService.getAveragePrice(req.params.stock, req.params.id, porfId)
@@ -141,6 +139,7 @@ module.exports = (express) => {
         })
     })
 
+    // page to add things to watchlist
     router.get('/watchlist', isLoggedIn, (req, res) => {
         res.render('addwatchlist', {
         })

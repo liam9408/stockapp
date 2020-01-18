@@ -1,12 +1,10 @@
 class StockService {
     constructor(knex) {
         this.knex = knex;
-        this.counter = 0
     }
 
     listWatchlist (user) {
         return new Promise ((resolve, reject) => {
-            // return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks')
             .join('users', 'userstocks.user_id', 'users.id')
             .join('stocks', 'userstocks.stocks_symbol', 'stocks.symbol')            
@@ -44,13 +42,10 @@ class StockService {
 
     getPortfolioID (param) {
         return new Promise ((resolve, reject) => {
-            console.log(param)
             let data = this.knex('portfolios').where({name:param})
+
             data.then((res) => {
-                console.log(res, 'resssss')
-                console.log(res[0], '<<<<<< res!!!!')
-                this.counter++;
-                console.log("service: I'm called "+this.counter +" times")
+                // console.log(res)
                 resolve(res[0].id);
             })
             .catch((err) => {
@@ -61,7 +56,6 @@ class StockService {
 
     getHoldings (user, portfolio) {
         return new Promise ((resolve, reject) => {
-            // return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
             .join('users', 'portfoliostocks.user_id', 'users.id')
             .join('stocks', 'portfoliostocks.stocks_symbol', 'stocks.symbol')
@@ -92,6 +86,7 @@ class StockService {
                 amount: amount,
                 price: price
             })
+            
             data.then((res) => {
                 // console.log(res)
                 resolve('data added');
@@ -120,12 +115,50 @@ class StockService {
     }
 
     addWatchlist (user, stock) {
-        return new Promise ((resolve, reject) => {
-            let data = this.knex('userstocks').insert({
+        return new Promise (async (resolve, reject) => {
+            let data = await this.knex('userstocks').where({
                 user_id: user,
                 stocks_symbol: stock
             })
+            if (data.length === 0) {
+                return this.knex('userstocks').insert({
+                    user_id: user,
+                    stocks_symbol: stock
+                })
+                .then((res) => {
+                    console.log('added', stock)
+                    resolve('YES')
+                })
+            }
+            else {
+                resolve('NO')
+            }
+        })
+    }
+
+    // addWatchlist (user, stock) {
+    //     return new Promise ((resolve, reject) => {
+    //         let data = this.knex('userstocks').insert({
+    //             user_id: user,
+    //             stocks_symbol: stock
+    //         })
+
+    //         data.then((res) => {
+    //             console.log('added ', stock, ' to watchlist')
+    //             resolve('data added')
+    //         })
+    //     })
+    // }
+
+    delWatchlist (user, stock) {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('userstocks').where({
+                user_id: user,
+                stocks_symbol: stock
+            }).del()
+
             data.then((res) => {
+                console.log('deleted ', stock, ' from watchlist')
                 resolve('data added')
             })
         })
@@ -166,6 +199,8 @@ class StockService {
         })
     }
 
+
+
     searchStock () {
         // search stocks by stock code etc, scan database for matches and return matches
     }
@@ -173,8 +208,6 @@ class StockService {
 }
 
 module.exports = StockService;
-
-// // const knexConfig = require('../knexfile.js').development;
 
 const knexConfig = {
     client: 'postgresql',
@@ -195,6 +228,8 @@ const test = new StockService(knex);
 // test.getPortfolioID('real estate hk')
 // test.addStock('YUJDbbb')
 // test.getAveragePrice('ADVD', 1, 1)
+// test.addWatchlist(1, 'SPOT')
+// test.delWatchlist(1, 'SPOT')
 
 
 
