@@ -3,5 +3,16 @@
 <h3>Portfolio of {{user}}</h3>
 
 {{#each portfolio}}
-    <a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a>
+<a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a>
 {{/each}}
+
+
+<div>
+    <label>Edit Portfolios</label>
+    <input id="portfolioName" type="text" name="portfolio" />
+</div>
+<div>
+    <button id='portfolioSubmit'>Submit</button>
+
+    <button id='portfolioDelete'>Delete</button>
+</div>

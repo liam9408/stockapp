@@ -136,20 +136,6 @@ class StockService {
         })
     }
 
-    // addWatchlist (user, stock) {
-    //     return new Promise ((resolve, reject) => {
-    //         let data = this.knex('userstocks').insert({
-    //             user_id: user,
-    //             stocks_symbol: stock
-    //         })
-
-    //         data.then((res) => {
-    //             console.log('added ', stock, ' to watchlist')
-    //             resolve('data added')
-    //         })
-    //     })
-    // }
-
     delWatchlist (user, stock) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks').where({
@@ -160,6 +146,77 @@ class StockService {
             data.then((res) => {
                 console.log('deleted ', stock, ' from watchlist')
                 resolve('data added')
+            })
+        })
+    }
+
+    addPortfolio (user, portfolio) {
+        return new Promise (async (resolve, reject) => {
+            let data = await this.knex('portfolios').where({
+                user_id: user,
+                name: portfolio
+            })
+            if (data.length === 0) {
+                return this.knex('portfolios').insert({
+                    user_id: user,
+                    name: portfolio
+                })
+                .then((res) => {
+                    console.log('added ', portfolio, ' to portfolios')
+                    resolve('YES')
+                })
+            }
+            else {
+                resolve('NO')
+            }
+        })
+    }
+
+    // delPortfolio (user, portfolio) {
+    //     return new Promise ((resolve, reject) => {
+    //         let data = this.knex('portfolios').where({
+    //             user_id: user,
+    //             name: portfolio
+    //         }).del()
+
+    //         data.then((res) => {
+    //             console.log('deleted ', portfolio, ' from portfolios')
+    //             resolve('data deleted')
+    //         })
+    //     })
+    // }
+
+    delPortfolio (user, portfolio) {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('portfolios')
+            .join('portfoliostocks', 'portfolios.id', 'portfoliostocks.portfolio_id')
+            .select('portfolios.id')
+            .select('portfoliostocks.portfolio_id')
+            .where('portfolios.name', portfolio)
+
+            data.then((res) => {
+                if (res.length === 0) {
+                    return this.knex('portfolios').where({
+                        user_id: user,
+                        name: portfolio
+                    }).del()
+                }
+                else {
+                    let target = this.knex('portfoliostocks')
+                    .join('portfolios', 'portfoliostocks.portfolio_id', 'portfolios.id')
+                    .select('portfoliostocks.portfolio_id')
+                    .where('portfolios.name', portfolio)
+                    // .del()
+
+                    target.then((res) => {
+                        console.log(res)
+                        return this.knex('portfolios').where({
+                            user_id: user,
+                            name: portfolio
+                        }).del()
+                    })
+                }
+                resolve('data deleted')
             })
         })
     }
@@ -230,6 +287,8 @@ const test = new StockService(knex);
 // test.getAveragePrice('ADVD', 1, 1)
 // test.addWatchlist(1, 'SPOT')
 // test.delWatchlist(1, 'SPOT')
+// test.addPortfolio(1, 'HAHAHHAA')
+// test.delPortfolio(1, 'HAHAHHAA')
 
 
 

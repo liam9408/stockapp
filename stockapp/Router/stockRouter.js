@@ -14,6 +14,8 @@ class StockRouter {
         router.get('/getwatchlist', this.getWatchlist.bind(this));
         router.post('/addwatchlist/:stock', this.addWatchlist.bind(this));
         router.delete('/delwatchlist/:stock', this.delWatchlist.bind(this));
+        router.post('/addportfolio/:portfolio', this.addPortfolio.bind(this));
+        router.delete('/delportfolio/:portfolio', this.delPortfolio.bind(this));
         router.post('/transactions/:stock/:portfolio/:action/:amount/:price', this.post.bind(this));
         // router.put('/', this.post.bind(this));
         // router.delete('/', this.post.bind(this));
@@ -68,6 +70,23 @@ class StockRouter {
     delWatchlist(req, res) {
         return this.stockService.delWatchlist(req.session.passport.user.id, req.params.stock).then(() => {
             console.log('deleted ', stock, ' from watchlist')
+            res.redirect('back')
+        })
+        .catch((err) => res.status(500).json(err))    
+    }
+
+    // add new portfolio
+    addPortfolio(req, res) {
+            return this.stockService.addPortfolio(req.session.passport.user.id, req.params.portfolio).then((data) => {
+                res.redirect('back')
+                .catch((err) => res.status(500).json(err));
+        })
+    }
+
+    // delete portfolio
+    delPortfolio(req, res) {
+        return this.stockService.delPortfolio(req.session.passport.user.id, req.params.portfolio).then(() => {
+            console.log('deleted ', portfolio, ' from portfolios')
             res.redirect('back')
         })
         .catch((err) => res.status(500).json(err))    
