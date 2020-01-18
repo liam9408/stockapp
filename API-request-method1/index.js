@@ -2,9 +2,9 @@ var XMLHttpRequest = require('xhr2');
 var xhr = new XMLHttpRequest();
 
 var apiKey = 'O00QUABRNGS34O4Z'
-var symbol = 'AMZN'
-var timeSeries = 'TIME_SERIES_INTRADAY'
-// var timeSeries = 'TIME_SERIES_DAILY'
+var symbol = 'AAPL'
+// var timeSeries = 'TIME_SERIES_INTRADAY'
+var timeSeries = 'TIME_SERIES_DAILY'
 // var timeSeries = 'TIME_SERIES_WEEKLY'
 
 function getStock(){
@@ -24,20 +24,23 @@ function getStock(){
         console.log(data['Meta Data'])
 
         // This will give you Stock Symbol
-        console.log(data['Meta Data']['2. Symbol'])
+        // console.log(data['Meta Data']['2. Symbol'])
 
         // // This will give you Stock Symbol, Time Zone etc
-        console.log(data['Time Series (5min)']);
+        // console.log(data['Time Series (5min)']);
 
-        var avgPrice = 1880;
-        var curShares = 1000;
-        var curValue = data['Time Series (5min)']['2020-01-13 16:00:00']['4. close']
+        // // This will give you Stock Symbol, Time Zone etc
+        // console.log(data['Time Series (Daily)']);
 
-        // With calculation of profit loss
-        console.log(' -------- Profit/Loss -------- ')
+        // var avgPrice = 1880;
+        // var curShares = 1000;
+        // // var curValue = data['Time Series (5min)']['2020-01-13 16:00:00']['4. close']
 
-        var profLoss = (curValue - avgPrice) * curShares
-        console.log(profLoss)
+        // // With calculation of profit loss
+        // console.log(' -------- Profit/Loss -------- ')
+
+        // var profLoss = (curValue - avgPrice) * curShares
+        // console.log(profLoss)
 
         } 
         else {

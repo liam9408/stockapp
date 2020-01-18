@@ -35,7 +35,7 @@ app.set('view engine', 'handlebars');
 setupPassport(app);
 
 // using the routers
-app.use('/stocks', (new StockRouter(stockService)).router());
+app.use('/api', (new StockRouter(stockService)).router());
 app.use('/', AuthRouter);
 app.use('/', ViewRouter);
 

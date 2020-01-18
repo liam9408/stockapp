@@ -9,7 +9,8 @@ class StockService {
             // return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks')
             .join('users', 'userstocks.user_id', 'users.id')
-            .join('stocks', 'userstocks.stocks_symbol', 'stocks.symbol')            .select('stocks.symbol')
+            .join('stocks', 'userstocks.stocks_symbol', 'stocks.symbol')            
+            .select('stocks.symbol')
             .where('users.email', user)
             .orderBy('userstocks.id');
     
@@ -115,6 +116,18 @@ class StockService {
             else {
                 resolve('NO')
             }
+        })
+    }
+
+    addWatchlist (user, stock) {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('userstocks').insert({
+                user_id: user,
+                stocks_symbol: stock
+            })
+            data.then((res) => {
+                resolve('data added')
+            })
         })
     }
 

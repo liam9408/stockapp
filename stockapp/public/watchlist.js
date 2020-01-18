@@ -1,4 +1,189 @@
+$(()=>{
 
+    const apiKey = 'O00QUABRNGS34O4Z'
+    const timeSeries = 'TIME_SERIES_DAILY'
+    const value = document.getElementsByClassName('value')
+    const change = document.getElementsByClassName('change')
+    const percentage = document.getElementsByClassName('percentage')
+    const stock = document.getElementsByClassName('name')
+    const tableRow = document.getElementsByTagName('tr')
+    var count = 0;
+
+
+    // PSUEDO CODE
+    // for each row (stocks) displayed in the table, make a corresponding AJAX request
+    // make calculations based on the data
+    // change the inner HTML of required elements to new data
+    
+
+    const getData = (stockName) => {
+        return $.get(`https://www.alphavantage.co/query?function=${timeSeries}&symbol=${stockName}&interval=5min&apikey=${apiKey}`)
+    } 
+
+    const getWatchlist = () => {
+        return $.get(`https://localhost:3030/api/`)
+    }
+
+    $.when(getWatchlist()).then(function (data) {
+        for (let name of data) {
+            console.log(name.symbol, '<<< name')
+
+            $.when(getData(name.symbol)).then(function (data) {
+
+                // var price = data['Time Series (Daily)']['2020-01-17']['4. close']
+                // // // count++;
+                // // // console.log(count - 1)
+                // console.log(price  + name.symbol)
+
+                // get stock prices            
+                let stockPriceLatest = (data['Time Series (Daily)']['2020-01-17']['4. close']);
+                let stockPricePrevious = (data['Time Series (Daily)']['2020-01-16']['4. close']);
+                console.log(name.symbol, ' CURRENT stock price: ', stockPriceLatest, ' PREVIOUS closing price: ', stockPricePrevious);
+
+                // get price difference 
+                let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2);
+                console.log(priceChange, '<--- PRICE change');
+
+                // get percentage change 
+                let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
+                console.log(percentageChange, '<--- PERCENTAGE change') 
+
+                if (percentageChange > 0) {
+                $('table tbody').append(`<tr class="stock increase"><td class="name">${name.symbol}</td><td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+
+                } else if (percentageChange < 0) {
+                $('table tbody').append(`<tr class="stock decrease"><td class="name">${name.symbol}</td><td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+                } 
+            })
+        }
+    })
+
+
+
+    // for (let row of stock) {
+    //     const symbol = $(row).text();
+
+    //     $.ajax({
+    //         url: `https://www.alphavantage.co/query?function=${timeSeries}&symbol=${symbol}&interval=5min&apikey=${apiKey}`,
+    //         type: 'GET',
+    //         success: function(data){
+    //             // var price = data['Time Series (Daily)']['2020-01-17']['4. close']
+    //             count++;
+    //             console.log(count - 1)
+    //             // console.log(price  + symbol)
+
+    //             // get stock prices            
+    //             let stockPriceLatest = (data['Time Series (Daily)']['2020-01-17']['4. close']);
+    //             let stockPricePrevious = (data['Time Series (Daily)']['2020-01-16']['4. close']);
+    //             console.log(symbol, ' CURRENT stock price: ', stockPriceLatest, ' PREVIOUS closing price: ', stockPricePrevious);
+
+    //             // get price difference 
+    //             let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2);
+    //             console.log(priceChange, '<--- PRICE change');
+
+    //             // get percentage change 
+    //             let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
+    //             console.log(percentageChange, '<--- PERCENTAGE change') 
+
+    //             if (percentageChange > 0) {
+    //             // $('tr').append(`<td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+    //             $('tr').addClass('stock increase').removeClass('stock decrease');
+    //             $(value[count - 1]).html(`${stockPriceLatest}`);
+    //             $(change[count - 1]).html(`${priceChange}`);
+    //             $(percentage[count - 1]).html(`${percentageChange}`);
+                    
+    //             } else if (percentageChange < 0) {
+    //             // $('tr').append(`<td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+    //             $('tr').addClass('stock decrease').removeClass('stock increase');
+    //             $(value[count - 1]).html(`${stockPriceLatest}`);
+    //             $(change[count - 1]).html(`${priceChange}`);
+    //             $(percentage[count - 1]).html(`${percentageChange}`);
+    
+    //             } 
+
+    //             if(count < stock.length) {
+    //                 console.log('here');
+    //             }
+    //         }
+    //     });
+    // }
+   
+    // for (let row of stock) {
+
+    //     console.log(row);
+
+    //     const symbol = $(row).text();
+    //     console.log(symbol, '<<<<<<<< symbols');
+
+    //     count ++;
+    //     console.log(count, '<<<< this is count');
+
+    //     $.when($.get(`https://www.alphavantage.co/query?function=${timeSeries}&symbol=${symbol}&interval=5min&apikey=${apiKey}`).then(function(data, status){
+
+    //         console.log(symbol, '<<<<< symbol inside AJAX');
+    //         console.log(count, '<<<< this is count INSIDE AJAX');
+
+    //         // getting stockname for matching
+    //         // let stockName = (data['Meta Data']['2. Symbol']);
+    //         // console.log(stockName, '<--- stock name from ajax request')
+            
+    //         // get stock prices            
+    //         let stockPriceLatest = (data['Time Series (Daily)']['2020-01-17']['4. close']);
+    //         let stockPricePrevious = (data['Time Series (Daily)']['2020-01-16']['4. close']);
+    //         console.log(symbol, ' CURRENT stock price: ', stockPriceLatest, ' PREVIOUS closing price: ', stockPricePrevious);
+
+    //         // get price difference 
+    //         let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2);
+    //         console.log(priceChange, '<--- PRICE change');
+
+    //         // get percentage change 
+    //         let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
+    //         console.log(percentageChange, '<--- PERCENTAGE change') 
+
+    //         if (percentageChange > 0) {
+    //             // $('tr').append(`<td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+    //             $('tr').addClass('stock increase').removeClass('stock decrease');
+    //             $(value[0]).html(`${stockPriceLatest}`);
+    //             $(change[0]).html(`${priceChange}`);
+    //             $(percentage[0]).html(`${percentageChange}`);
+                
+    //         } else if (percentageChange < 0) {
+    //             // $('tr').append(`<td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+    //             $('tr').addClass('stock decrease').removeClass('stock increase');
+    //             $(value[0]).html(`${stockPriceLatest}`);
+    //             $(change[0]).html(`${priceChange}`);
+    //             $(percentage[0]).html(`${percentageChange}`);
+    //         }
+    //     }));
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+// PROBLEM
+// it's only getting the last stock price and putting it in value
 
 
 
@@ -45,27 +230,3 @@
 
 
 
-// const knexConfig = require('./knexfile').development;
-// const knex = require('knex')(knexConfig);
-
-
-//   // let data =  knex.select('*').from('users').where('email', 'yickkiu.leung@gmail.com'); 
-
-//   let data = knex('userstocks')
-//   .join('users', 'userstocks.user_id', 'users.id')
-//   .join('stocks', 'userstocks.stocks_id', 'stocks.id')
-//   .select('userstocks.stocks_id', 'userstocks.user_id')
-//   .select('userstocks.stocks_id', 'stocks.symbol')
-//   .where('users.email', user)
-//   .orderBy('userstocks.id');
-
-//   return data.then((rows)=>{
-//     console.log(rows)
-//   })
-
-//   async function getUser() {
-//   let data = await knex.select('*').from('users').where('email', 'yickkiu.leung@gmail.com'); 
-//   console.log(data)
-// }
-
-// getUser()

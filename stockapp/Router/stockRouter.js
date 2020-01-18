@@ -10,8 +10,9 @@ class StockRouter {
     router () {
         let router = express.Router();
         router.get('/', this.get.bind(this));
-        // router.get('/', this.getWatch.bind(this)); <<<<<<<<<
-        // router.post('/', this.post.bind(this));
+        router.get('/:email', this.getWatch.bind(this)); 
+        router.get('/getwatchlist', this.getWatchlist.bind(this));
+        router.post('/addwatchlist/:stock', this.addWatchlist.bind(this));
         router.post('/transactions/:stock/:portfolio/:action/:amount/:price', this.post.bind(this));
         // router.put('/', this.post.bind(this));
         // router.delete('/', this.post.bind(this));
@@ -23,7 +24,7 @@ class StockRouter {
         return this.stockService.listWatchlist(req.session.passport.user.email)
         .then((stocks) => {
             console.log(stocks)
-            res.render(stocks)
+            res.json(stocks)
         })
         .catch((err) => res.status(500).json(err));
     };
@@ -44,8 +45,29 @@ class StockRouter {
         })
     };
 
-    getWatch() {}
+    getWatch(req, res) {
+        this.stockService.getPortfolio(req.params.email).then((data) => {
+            res.json(data)
+        })
+        .catch((err) => res.status(500).json(err));
+    }
 
+    addWatchlist(req, res) {
+        this.stockService.addStock(req.params.stock).then((data) => {
+            console.log('added ', req.params.stock, ' to watchlist')
+            return this.stockService.addWatchlist(req.session.passport.user.id, req.params.stock)
+                .then(() => res.redirect('back'))
+                .catch((err) => res.status(500).json(err));
+        })
+    }
+
+    getWatchlist(req, res) {
+        return this.stockService.listWatchlist(req.session.passport.user.id).then((data) => {
+            console.log(data, 'sending THESE!!!!')
+            res.json(data)
+        })
+        .catch((err) => res.status(500).json(err))    
+    }
 }
 
 module.exports = StockRouter;

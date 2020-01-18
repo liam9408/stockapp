@@ -141,6 +141,10 @@ module.exports = (express) => {
         })
     })
 
+    router.get('/watchlist', isLoggedIn, (req, res) => {
+        res.render('addwatchlist', {
+        })
+    });
     
     return router;
 };

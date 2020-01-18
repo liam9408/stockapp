@@ -22,7 +22,7 @@ $(()=>{
         var amount = $(amountInput).val()
 
         $.ajax({
-            url: `/stocks/transactions/${stock}/${portfolio}/${action}/${amount}/${price}`,
+            url: `/api/transactions/${stock}/${portfolio}/${action}/${amount}/${price}`,
             type: 'POST',
             data: {
                 stock: stock,
