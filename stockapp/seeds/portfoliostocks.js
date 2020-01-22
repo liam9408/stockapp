@@ -7,11 +7,13 @@ exports.seed = function(knex) {
 
       // Inserts seed entries
       return knex('stocks').insert([
-        {symbol: 'ADVD'},
-        {symbol: 'QWER'},
-        {symbol: 'JKLO'},
-        {symbol: 'YUER'},
-        {symbol: 'VBDE'}
+        {symbol: 'TSLA'},
+        {symbol: 'AMZN'},
+        {symbol: 'GOOG'},
+        {symbol: 'SPOT'},
+        {symbol: 'AAPL'},
+        {symbol: 'MSFT'},
+        {symbol: 'NFLX'}
       ]);
     });
 };

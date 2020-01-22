@@ -19,8 +19,9 @@ module.exports = (express) => {
     }
     
     // whenever we try to access this route, it checks if the user is logged in or not
-    router.get('/',  isLoggedIn, (req, res) => {
+    router.get('/dashboard',  isLoggedIn, (req, res) => {
         stockService.listWatchlist(req.session.passport.user.email).then((data) => {
+
             // console.log(data)
             res.render('dashboard', {
                 user: req.session.passport.user.name, 
@@ -36,45 +37,6 @@ module.exports = (express) => {
     // list user's portfolios
     router.get('/portfolio',  isLoggedIn, (req, res) => {
         stockService.getPortfolio(req.session.passport.user.email).then((data) => {
-
-            // var holdings = {
-            //     key: []
-            // };
-
-            // var holdings = {}
-            // var holdings = [] 
-
-            // for (let i of data) {
-                // console.log(i.name)
-                // await stockService.getHoldings(req.session.passport.user.email, i.name).then((stocks) => {
-                    // console.log(stocks[0].name)
-
-                    // var porfName = stocks[0].name
-
-                    // var sym = stocks.length
-                    // console.log(sym)
-                    // console.log(porfName)
-
-                    // function addArray (obj) {
-                    //     holdings[porfName].push(obj)
-                    // }
-
-                    // holdings[porfName] = [stocks[0].symbol, stocks[1].symbol]
-
-                    // object
-                    // var key;
-                    // console.log(stocks, '<<<<<<<< stocks')
-                    // holdings[key] = stocks;
-                    // return holdings
-
-                    // array
-                    // console.log(stocks, '<<<<<<<< stocks')
-                    // holdings.push(stocks);
-            //     })
-            // }
-    
-            // console.log(porfNames, '<<<<<<<< porfNAMESSSS')
-            // console.log(holdings, '<<<<<<<< holding')
                 res.render('portfolios', {
                     user: req.session.passport.user.name, 
                     portfolio: data
@@ -144,6 +106,12 @@ module.exports = (express) => {
         res.render('addwatchlist', {
         })
     });
-    
+
+    // stock page
+    router.get('/stockinfo/:stock', isLoggedIn, (req, res) => {
+        console.log(req.params.stock)
+        res.render('stockinfo', {data: req.params.stock})
+    });
+
     return router;
 };

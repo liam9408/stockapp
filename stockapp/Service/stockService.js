@@ -3,6 +3,24 @@ class StockService {
         this.knex = knex;
     }
 
+    listAllStocks () {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('stocks')
+            .select('symbol');
+
+            data.then((res) => {
+                var stocks = []
+                for (let stock of res) {
+                    stocks.push(stock.symbol)
+                }
+                resolve(stocks)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })
+    }
+
     listWatchlist (user) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks')
@@ -27,6 +45,7 @@ class StockService {
             let data = this.knex('portfolios')
             .join('users', 'portfolios.user_id', 'users.id')
             .select('portfolios.name')
+            .select('portfolios.id')
             .where('users.email', user)
             .orderBy('portfolios.id');
 
@@ -209,7 +228,7 @@ class StockService {
                     // .del()
 
                     target.then((res) => {
-                        console.log(res)
+                        // console.log(res)
                         return this.knex('portfolios').where({
                             user_id: user,
                             name: portfolio
@@ -221,34 +240,28 @@ class StockService {
         })
     }
 
-    getAveragePrice (stock, user, portfolio) {
+    getAveragePrice (portfolio, stock) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
-            .join('users', 'portfoliostocks.user_id', 'users.id')
-            .join('stocks', 'portfoliostocks.stocks_symbol', 'stocks.symbol')
-            .select('portfoliostocks.stocks_symbol')
-            .select('portfoliostocks.amount')
-            .select('portfoliostocks.price')
-            .where('users.id', user)
-            .where('stocks.symbol', stock)
-            .where('portfoliostocks.portfolio_id', portfolio)
+            .join('portfolios', 'portfoliostocks.portfolio_id', 'portfolios.id')
+            .select('stocks_symbol')
+            .select('action')
+            .select('amount')
+            .select('price')
+            .where('portfolios.name', portfolio)
+            .where('portfoliostocks.action', 'buy')
+            .where('portfoliostocks.stocks_symbol', stock)
 
             data.then((res) => {
-                var totalAmount = 0;
-                var price = 0;
-                for (let i of res) {
-                    // console.log(res)
-                    // console.log(i.price)
-                    totalAmount += i.amount;
-                    price += i.price;
+                var totalBuy= 0;
+                var totalShares = 0;
+                for (let each of res) {
+                    totalBuy += each.price*each.amount;
+                    totalShares += each.amount;
                 }
-                var averagePrice = (price / res.length)
-                // console.log(price, '<<<<< price!!!')
-                // console.log(averagePrice, '<<<<< avgPrice!!')
-                // console.log(totalAmount, '<<<<total amount')
-                // console.log(res.length)
-                // console.log(res[1].amount)
-                resolve(averagePrice)
+                var average = totalBuy/totalShares
+                // console.log(average)
+                resolve(average)
             })
             .catch((err) => {
                 console.error(err)
@@ -256,7 +269,57 @@ class StockService {
         })
     }
 
+    listPortfolioStocks (user, portfolio) {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('portfoliostocks')
+            .join('portfolios', 'portfoliostocks.portfolio_id', 'portfolios.id')
+            .select('stocks_symbol')
+            .where('portfolios.name', portfolio)
+            .where('portfoliostocks.user_id', user)
+            .groupBy('portfoliostocks.stocks_symbol')
 
+            data.then((res) => {
+                var output = []
+                for (let each of res) {
+                    output.push(each.stocks_symbol)
+                }
+                // console.log(output)
+                resolve(res)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })
+    }
+
+    getCurrentShares (portfolio, stock) {
+        return new Promise ((resolve, reject) => {
+            let data = this.knex('portfoliostocks')
+            .join('portfolios', 'portfoliostocks.portfolio_id', 'portfolios.id')
+            .select('stocks_symbol')
+            .select('action')
+            .select('amount')
+            .select('price')
+            .where('portfolios.name', portfolio)
+            .where('portfoliostocks.stocks_symbol', stock)
+
+            data.then((res) => {
+                var totalSales= []
+                for (let each of res) {
+                    totalSales.push(each.amount)
+                }
+                function add(accumulator, a) {
+                    return accumulator + a;
+                }
+                var total = totalSales.reduce(add);
+                // console.log(total)
+                resolve(total)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })
+    }
 
     searchStock () {
         // search stocks by stock code etc, scan database for matches and return matches
@@ -284,11 +347,14 @@ const test = new StockService(knex);
 // test.addBuy(1, 'ADVD', 1, 'buy', 100, 12)
 // test.getPortfolioID('real estate hk')
 // test.addStock('YUJDbbb')
-// test.getAveragePrice('ADVD', 1, 1)
+// test.getAveragePrice('real estate hk', 'TSLA')
 // test.addWatchlist(1, 'SPOT')
 // test.delWatchlist(1, 'SPOT')
 // test.addPortfolio(1, 'HAHAHHAA')
 // test.delPortfolio(1, 'HAHAHHAA')
+// test.listPortfolioStocks(1, 'real estate hk')
+// test.getCurrentShares('real estate hk', 'TSLA')
+// test.listAllStocks()
 
 
 

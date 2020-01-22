@@ -1,58 +1,59 @@
 $(()=>{
 
-    const apiKey = 'O00QUABRNGS34O4Z'
-    const timeSeries = 'TIME_SERIES_DAILY'
-    const value = document.getElementsByClassName('value')
-    const change = document.getElementsByClassName('change')
-    const percentage = document.getElementsByClassName('percentage')
-    const stock = document.getElementsByClassName('name')
-    const tableRow = document.getElementsByTagName('tr')
-    var count = 0;
-
-
-    // PSUEDO CODE
-    // for each row (stocks) displayed in the table, make a corresponding AJAX request
-    // make calculations based on the data
-    // change the inner HTML of required elements to new data
-    
+    const apiKey = 'pk_33ba44994cf3468bb0e0aa9487c9b22b'
+    const tablebody = document.getElementById('watchlistBody')
 
     const getData = (stockName) => {
-        return $.get(`https://www.alphavantage.co/query?function=${timeSeries}&symbol=${stockName}&interval=5min&apikey=${apiKey}`)
+        return new Promise ((resolve, reject) => {
+            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+        
+            data.then((res) => {
+                resolve(res)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })
     } 
 
     const getWatchlist = () => {
-        return $.get(`https://localhost:3030/api/`)
+        return new Promise ((resolve, reject) => {
+            let data = $.get(`https://localhost:3030/api/getwatchlist`)
+            
+            data.then((res) => {
+                resolve(res)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })
     }
 
     $.when(getWatchlist()).then(function (data) {
+
         for (let name of data) {
-            console.log(name.symbol, '<<< name')
+            // console.log(name.symbol, '<<< name')
 
             $.when(getData(name.symbol)).then(function (data) {
 
-                // var price = data['Time Series (Daily)']['2020-01-17']['4. close']
-                // // // count++;
-                // // // console.log(count - 1)
-                // console.log(price  + name.symbol)
-
                 // get stock prices            
-                let stockPriceLatest = (data['Time Series (Daily)']['2020-01-17']['4. close']);
-                let stockPricePrevious = (data['Time Series (Daily)']['2020-01-16']['4. close']);
-                console.log(name.symbol, ' CURRENT stock price: ', stockPriceLatest, ' PREVIOUS closing price: ', stockPricePrevious);
+                let stockPriceLatest = (data['quote']['open']);
+                let stockPricePrevious = (data['quote']['previousClose']);
+                // console.log(name.symbol, ' CURRENT stock price: ', stockPriceLatest, ' PREVIOUS closing price: ', stockPricePrevious);
 
                 // get price difference 
                 let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2);
-                console.log(priceChange, '<--- PRICE change');
+                // console.log(priceChange, '<--- PRICE change');
 
                 // get percentage change 
                 let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
-                console.log(percentageChange, '<--- PERCENTAGE change') 
+                // console.log(percentageChange, '<--- PERCENTAGE change') 
 
                 if (percentageChange > 0) {
-                $('table tbody').append(`<tr class="stock increase"><td class="name">${name.symbol}</td><td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+                $(tablebody).append(`<tr class="stock increase"><td class="name"><a href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
 
                 } else if (percentageChange < 0) {
-                $('table tbody').append(`<tr class="stock decrease"><td class="name">${name.symbol}</td><td class="value">${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+                $(tablebody).append(`<tr class="stock decrease"><td class="name"><a href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
                 } 
             })
         }

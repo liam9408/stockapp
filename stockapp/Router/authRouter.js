@@ -6,19 +6,23 @@ const passport = require('passport');
 module.exports = (express) => {
     const router = express.Router();
 
-    // // define middleware
-    // function isLoggedIn(req, res, next) {
-    //     // check if user is currently logged in
-    //     if (req.isAuthenticated()) {
-    //         return next();
-    //     }
-    //     // if not logged in, redirect to the landing page
-    //     res.render('landing');
-    // }
-    
+    // define middleware
+    function isLoggedIn(req, res, next) {
+        // check if user is currently logged in
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        // if not logged in, redirect to the landing page
+        res.render('landing');
+    }
+
+    router.get('/', isLoggedIn, (req, res) => {
+        res.render('dashboard')
+    })
+
     // using our local login
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/',
+        successRedirect: '/dashboard',
         failureRedirect: '/error'
     }));
     
@@ -35,7 +39,7 @@ module.exports = (express) => {
     router.post('/signup', passport.authenticate('local-signup', {
         failureRedirect: '/error'
     }), function(req, res) {
-        res.render('dashboard');
+        res.successRedirect('/dashboard');
     });
 
     // facebook auth
@@ -45,7 +49,7 @@ module.exports = (express) => {
 
     router.get("/auth/facebook/callback", passport.authenticate('facebook', {
         failureRedirect: "/login",
-        successRedirect: "/"
+        successRedirect: "/dashboard"
     }))
 
     // google auth
@@ -56,7 +60,7 @@ module.exports = (express) => {
 
     router.get('/auth/google/callback', passport.authenticate('google', { 
         failureRedirect: "/login", 
-        successRedirect: "/"
+        successRedirect: "/dashboard"
     }))
 
     return router;

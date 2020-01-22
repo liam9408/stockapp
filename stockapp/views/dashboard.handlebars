@@ -1,33 +1,68 @@
-<h1>DASHBOARD</h1>
+<h2>Dashboard</h2>
 
-<h3>search</h3>
-
-<h3>portfolio</h3>
-
-<h3>watchlist</h3>
-
-<h3>markets news</h3>
-
-
-<table class="tablesorter">
-    <thead>
-        <th>Stock</th>
-        <th>Price</th>
-        <th>Change</th>
-        <th>%</th>
-    </thead>
-    <tbody>
-            {{!-- {{#each data}}
-            <tr class="stock increase"><td class="name">{{symbol}}</td></tr>
-            {{/each}} --}}
+                        <form id="watchlistForm" autocomplete="off">
+                            <div class="autocomplete" style="width:300px;">
+                                <input id="addWatchlist" type="text" name="stock" placeholder="Add stock to watchlist" style="width: ;">
+                            </div>
+                            <input type="submit" value="   Add   ">
+                        </form>
 
 
-            {{!-- {{#each data}}
-            <tr class="stock increase"><td class="name">{{symbol}}</td><td class="value">test</td><td class="change">test</td><td class="percentage">test</td></tr>
-            {{/each}} --}}
-    </tbody>
-</table>
+<div class="mainBody">
+    <div class="stockInfo">
+
+        <div class="tables">
+            <div id="watchlist">
+                <table class="watchlist tablesorter">
+                    <h3>Watchlist</h3>
+                        {{!-- <div>
+                            <label>Stock:</label>
+                            <input id="watchlistStock" type="text" name="stock" placeholder="Add to watchlist"/>
+                        </div>
+                        <div>
+                            <button id='watchlistSubmit'>Submit</button>
+                            <button id='watchlistDelete'>Delete</button>
+                        </div> --}}
 
 
+                    <thead>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Change</th>
+                        <th>%</th>
+                    </thead>
+                    <tbody id="watchlistBody">
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div id="portfolio">
+                <table class="portfolio tablesorter">
+                    <h3>Portfolio</h3>
+                    <thead>
+                        <th>Portfolio</th>
+                        <th>Performance</th>
+                    </thead>
+                    <tbody id="portfolioBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <h3>Market News</h3>
+    <div id="wrapper" class="wrapper"></div>
+
+
+
+</div>
         
+
+
+
+
 

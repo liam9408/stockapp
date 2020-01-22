@@ -21,20 +21,43 @@ $(()=>{
         var price = $(priceInput).val()
         var amount = $(amountInput).val()
 
-        $.ajax({
-            url: `/api/transactions/${stock}/${portfolio}/${action}/${amount}/${price}`,
-            type: 'POST',
-            data: {
-                stock: stock,
-                portfolio: portfolio,
-                action: 'action',
-                amount: amount,
-                price, price
-            },
-            success: function(result){
-                console.log(result)
-            }
-        })
-        location.reload()
+        // console.log(action, '-----action!!!')
+
+        if (action === 'buy') {
+            $.ajax({
+                url: `/api/transactions/${stock}/${portfolio}/${action}/${amount}/${price}`,
+                type: 'POST',
+                data: {
+                    stock: stock,
+                    portfolio: portfolio,
+                    action: 'action',
+                    amount: amount,
+                    price, price
+                },
+                success: function(result){
+                    console.log(result)
+                }
+            })
+        }
+        else if (action === 'sell') {
+            var sellAmount = (0 - amount);
+            console.log(sellAmount)
+            $.ajax({
+                url: `/api/transactions/${stock}/${portfolio}/${action}/${sellAmount}/${price}`,
+                type: 'POST',
+                data: {
+                    stock: stock,
+                    portfolio: portfolio,
+                    action: 'action',
+                    amount: sellAmount,
+                    price, price
+                },
+                success: function(result){
+                    console.log(result)
+                }
+            })
+        }
+
+        // location.reload()
     })
 })

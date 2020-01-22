@@ -1,15 +1,18 @@
 $(()=>{
 
-    var stockInput = document.getElementById('watchlistStock')
+    var stockInput = document.getElementById('addWatchlist')
     var submit = document.getElementById('watchlistSubmit')
+    var form = document.getElementById('watchlistForm')
 
     var del = document.getElementById('watchlistDelete')
 
     console.log(stockInput)
     console.log(submit)
     console.log(del)
+    console.log(form)
 
-    $(submit).on('click', (event) => {
+    $(form).on('submit', (event) => {
+
         var stock = $(stockInput).val()
 
         $.ajax({
@@ -40,9 +43,5 @@ $(()=>{
         })
         location.reload()
     })
-
-
-
-
 
 })

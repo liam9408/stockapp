@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
   return knex.schema.createTable('users', (table) => {
       table.increments('id').unique().primary();
@@ -20,15 +19,14 @@ exports.up = function(knex) {
   })
 
     .createTable('stocks', (table) => {
-      table.increments('id').primary();
-      table.string('symbol').unique()
+      table.string('symbol').unique().primary();
       table.timestamps(false, true) // timestamps column
   })
 
     .createTable('portfoliostocks', (table) => {
       table.increments('id').primary();
       table.integer('portfolio_id').references('id').inTable('portfolios')
-      table.integer('stocks_id').references('id').inTable('stocks')
+      table.string('stocks_symbol').references('symbol').inTable('stocks')
       table.integer('user_id').references('id').inTable('users');
       table.string('action')
       table.integer('amount')
@@ -39,7 +37,7 @@ exports.up = function(knex) {
     .createTable('userstocks', (table) => {
       table.increments('id').primary();
       table.integer('user_id').references('id').inTable('users');
-      table.integer('stocks_id').references('id').inTable('stocks');
+      table.string('stocks_symbol').references('symbol').inTable('stocks');
       table.timestamps(false, true) // timestamps column
   })
 
@@ -48,4 +46,3 @@ exports.up = function(knex) {
   exports.down = function(knex) {
     return knex.schema.dropTable('users').dropTable('portfolios').dropTable('stocks').dropTable('portfoliostocks').dropTable('userstocks');
   };
-  

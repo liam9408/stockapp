@@ -1,10 +1,10 @@
 <h1>Portfolios</h1>
 
-<h3>Portfolio of {{user}}</h3>
-
+<h3>Portfolios of {{user}}</h3>
+{{!-- 
 {{#each portfolio}}
 <a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a>
-{{/each}}
+{{/each}} --}}
 
 
 <div>
@@ -12,7 +12,34 @@
     <input id="portfolioName" type="text" name="portfolio" />
 </div>
 <div>
-    <button id='portfolioSubmit'>Submit</button>
+    <button id='portfolioSubmit'>Create New</button>
 
     <button id='portfolioDelete'>Delete</button>
 </div>
+
+{{#each portfolio}}
+{{!-- <a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a> --}}
+<div class="tables">
+    <div id="portfolios">
+        <table class="watchlist tablesorter">
+            <h3>{{name}}</h3>
+            <thead>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>%</th>
+            </thead>
+            <tbody id="{{id}}">
+                    {{!-- {{#each data}}
+                    <tr class="stock increase"><td class="name">{{symbol}}</td></tr>
+                    {{/each}} --}}
+
+
+                    {{!-- {{#each data}}
+                    <tr class="stock increase"><td class="name">{{symbol}}</td><td class="value">test</td><td class="change">test</td><td class="percentage">test</td></tr>
+                    {{/each}} --}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{/each}}

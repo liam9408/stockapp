@@ -19,9 +19,6 @@ module.exports = (passport) => {
         returnURL: '/auth/google/return',
       },
       async (accessToken, refreshToken, profile, done) => {
-        // console.log(accessToken)
-        // console.log(profile);
-        // console.log(profile.emails[0].value)
         // checking our database to verify whether the user has previosuly created an account with us
         let userResult = await knex('users').where({ googleID: profile.id });
         // if this is a new user, create a new user in our database
