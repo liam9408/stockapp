@@ -2,10 +2,12 @@
 
                         <form id="watchlistForm" autocomplete="off">
                             <div class="autocomplete" style="width:300px;">
-                                <input id="addWatchlist" type="text" name="stock" placeholder="Add stock to watchlist" style="width: ;">
+                                <input id="addWatchlist" type="text" name="stock" placeholder="Add stock to watchlist">
                             </div>
-                            <input type="submit" value="   Add   ">
+                            <input id="add" type="submit" name="action" value="Add">
+                            <input id="del" type="submit" name="action" value="Delete">
                         </form>
+                            {{!-- <button id='watchlistDelete'>Delete</button> --}}
 
 
 <div class="mainBody">

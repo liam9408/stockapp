@@ -4,6 +4,7 @@ $(()=>{
     var submit = document.getElementById('watchlistSubmit')
     var form = document.getElementById('watchlistForm')
 
+    var stockInput = document.getElementById('addWatchlist')
     var del = document.getElementById('watchlistDelete')
 
     console.log(stockInput)
@@ -11,8 +12,7 @@ $(()=>{
     console.log(del)
     console.log(form)
 
-    $(form).on('submit', (event) => {
-
+    $('#add').click(function() {
         var stock = $(stockInput).val()
 
         $.ajax({
@@ -26,10 +26,12 @@ $(()=>{
             }
         })
         location.reload()
-    })
-
-    $(del).on('click', (event) => {
+    });
+    
+    $('#del').click(function() {
         var stock = $(stockInput).val()
+
+        console.log(stock)
 
         $.ajax({
             url: `/api/delwatchlist/${stock}`,
@@ -42,6 +44,6 @@ $(()=>{
             }
         })
         location.reload()
-    })
+    });
 
 })

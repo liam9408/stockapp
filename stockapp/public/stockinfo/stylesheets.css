@@ -230,7 +230,7 @@ input {
 
 input[type=text] {
   background-color: #f1f1f1;
-  width: 100%;
+  /* width: 200px !important; */
 }
 
 input[type=submit] {
@@ -267,4 +267,76 @@ input[type=submit] {
 .autocomplete-active {
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+
+/*
+===================================================================
+Stock Details
+===================================================================
+*/
+
+.increase {
+  color: green;
+}
+
+.decrease {
+  color: red;
+}
+
+.detailCrop {
+  width: 150px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.detailCrop img {
+  width: 100%;
+  height: 100%;
+}
+
+.newsBlock {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(243, 243, 243);
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.publisher {
+  display: flex;
+  flex-direction: row;
+}
+
+#spacer {
+  width: 20px;
+  height: 5px;
+}
+
+.newsHeadline {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.source {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 100
+}
+
+.dateTime {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 100
+}
+
+.summary {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 100
+}
+
+.texts {
+  padding-left: 20px;
 }
