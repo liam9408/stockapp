@@ -2,6 +2,8 @@ $(()=>{
 
     const apiKey = 'pk_33ba44994cf3468bb0e0aa9487c9b22b'
 
+    // Declaring all needed functions
+
     const randomNumber = () => {return [makeRandom('0123456789'), makeRandom('0123456789'), makeRandom('0123456789')]};
 
     const randomSixNumber = () => {return makeRandom('012345')};
@@ -39,13 +41,19 @@ $(()=>{
         })
     } 
 
-
+    // Actual rendering starts
+ 
     $.when(getWatchlist()).then((data) => {
 
+        // Newsfeed 
+        
+        // The list of stocks we need to fetch news for
         var stockList = []
 
+        // We are fetching three articles per news
         var newsLength = (randomNumber()).length
 
+        // Adding the stock into the stocklist array
         for (let stocks of data) {
 
             let stock = stocks.symbol
@@ -53,57 +61,58 @@ $(()=>{
             
         }
 
-        // console.log(stockList, '<<<< stockList')
-
+        // running the getFeed function to all the stocks in stockList
         var news = stockList.map(getFeed)
 
         Promise.all(news).then(function(data) {
             
-            console.log(data, '<<<< DATA!!')
-            
+            // Total number of articles we will show
             const totalLength = (stockList.length) * newsLength
-            // console.log(totalLength)
             
+            // Making sure the articles in the news feed don't repeat themselves
             var feed = new Set();
 
             var count = 0;
 
+            // As the getFeed promise will return an object containing the news of all the stocks in stockList, 
+            // we need numString to be flexible so that it can accommdate a varying watchlist/stockList length
+            var numString = '';
+
+            for (var i = 0; i < stockList.length; i++) {
+                var num = i.toString();
+                numString += num;
+            }
+
+            // Return a random number based between 0 and the amount of stocks we are fetching news for
+            const randomLength = () => {return makeRandom(numString)};
+
+            // Randomly pushing news articles into our feed set, global index will determine the stock, and local index will determine the article
             while (count < totalLength) {
 
-                var globalIndex = randomSixNumber()
+                var globalIndex = randomLength()
                 var localIndex = randomTwoNumber()
-                console.log(globalIndex, localIndex)
 
                 var article = data[globalIndex][localIndex];
-                console.log(article, '<<<article')
 
                 feed.add(article)
     
                 count ++
             }
 
-            console.log(feed, '<<<<<< FEED')
-
+            // For each article in the feed, we append it to the dashboard
             for (let news of feed) {
-
-                // console.log(news, '<<< individual news here')
 
                 var headline = news.headline
 
                 var headlineSliced = (news.headline).slice(0, 100)
-                // console.log(headline)
 
                 var source = news.source
-                // console.log(source)
 
                 var summary = (news.summary).slice(0, 180)
-                // console.log(summary)
 
                 var url = news.url
-                // console.log(url)
 
                 var image = news.image
-                // console.log(image)
 
                 if (headline.length <= headlineSliced.length) {
                     $('#wrapper').append(`<div class="news"><div class="crop"><img src="${image}"></div><h3 class="headline">${headline}</h3><h5 class="source">${source}</h5><p class="summary">${summary}...</p><a href="${url}">Read more...</a></div>`)
@@ -115,32 +124,20 @@ $(()=>{
         })
 
                 
-                
-                
-                
-                
-                          
-                
-                function getFeed(stock) {
-                    
-                    return new Promise ((resolve, reject) => {
+        function getFeed(stock) {
 
-                        let data = $.when(getNews(stock)).then((data) => {
-                
-                            // console.log(data)
+            return new Promise ((resolve, reject) => {
+
+                let data = $.when(getNews(stock)).then((data) => {
                         
-                            const indexes = randomNumber()
-                            // console.log(indexes)
+                    const indexes = randomNumber()
 
-                            var output = [data[indexes[0]], data[indexes[1]], data[indexes[2]]]
+                    var output = [data[indexes[0]], data[indexes[1]], data[indexes[2]]]
 
-                            // console.log(output)
-                            resolve(output)
-            
-                        })
-
-                    })
-                }
+                    resolve(output)
+                })
+            })
+        }
             
 
 

@@ -4,10 +4,6 @@ $(()=>{
     var submit = document.getElementById('portfolioSubmit')
     var del = document.getElementById('portfolioDelete')
 
-    console.log(portfolioInput)
-    console.log(submit)
-    console.log(del)
-
     $(submit).on('click', (event) => {
         var portfolio = $(portfolioInput).val()
 

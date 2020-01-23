@@ -22,23 +22,13 @@ class StockRouter {
         router.get('/currentshares/:portfolio/:stock', this.getCurrentShares.bind(this));
         router.get('/portfoliostocks/:portfolio', this.listPortfolioStocks.bind(this));
         router.get('/averageprice/:portfolio/:stock', this.getAveragePrice.bind(this));
-        // router.put('/', this.post.bind(this));
-        // router.delete('/', this.post.bind(this));
         return router
     }
-
-    // testFunction(req, res) {
-    //     this.stockService.getPortfolio(req.params.email).then((data) => {
-    //         res.json(data)
-    //     })
-    //     .catch((err) => res.status(500).json(err));
-    // }
     
     get(req, res) {
         console.log('get')
         return this.stockService.listAllStocks()
         .then((stocks) => {
-            // console.log(stocks)
             res.json(stocks)
         })
         .catch((err) => res.status(500).json(err));
@@ -61,6 +51,7 @@ class StockRouter {
         })
     };
 
+    // same as get but different route
     listAllStocks(req, res) {
         return this.stockService.listAllStocks()
         .then((stocks) => {
@@ -110,14 +101,6 @@ class StockRouter {
         .catch((err) => res.status(500).json(500))
     }
 
-    // get(req, res) {
-    //     return this.stockService.listWatchlist(req.session.passport.user.email)
-    //     .then((stocks) => {
-    //         res.json(stocks)
-    //     })
-    //     .catch((err) => res.status(500).json(err));
-    // };
-
     // add new portfolio
     addPortfolio(req, res) {
             return this.stockService.addPortfolio(req.session.passport.user.id, req.params.portfolio).then((data) => {
@@ -135,6 +118,7 @@ class StockRouter {
         .catch((err) => res.status(500).json(err))    
     }
 
+    // list each portfolio's stock
     listPortfolioStocks(req, res) {
         return this.stockService.listPortfolioStocks(req.session.passport.user.id, req.params.portfolio).then((data) => {
             res.json(data)
@@ -142,6 +126,7 @@ class StockRouter {
         .catch((err) => res.status(500).json(err))
     }
 
+    // get current shares of a stock
     getCurrentShares(req, res) {
         return this.stockService.getCurrentShares(req.params.portfolio, req.params.stock).then((data) => {
             res.json(data)
@@ -149,6 +134,7 @@ class StockRouter {
         .catch((err) => res.status(500).json(err))
     }
 
+    // get average price of a stock
     getAveragePrice(req, res) {
         return this.stockService.getAveragePrice(req.params.portfolio, req.params.stock).then((data) => {
             res.json(data)

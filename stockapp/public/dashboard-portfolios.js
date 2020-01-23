@@ -3,6 +3,8 @@ $(()=>{
     const tablebody = document.getElementById('portfolioBody')
     const apiKey = 'pk_33ba44994cf3468bb0e0aa9487c9b22b'
 
+    // Declaring needed functions
+
     function add(accumulator, a) {
         return accumulator + a;
     }
@@ -74,32 +76,32 @@ $(()=>{
 
   
 
+    // Actual render begins
+
     $.when(getPortfolio()).then(function (data) {
 
+        // Got a list of user's portfolio
         for (let name of data) {
             
             const portfolio = name.name
-            
+
+            // Get list of stocks under each portfolio
             $.when(listPortfolioStocks(portfolio)).then(function (data) {
                 
                 var stockList = [];
 
+                // Pushing these stocks into an array
                 for (let stock of data) {
                     const stockName = stock.stocks_symbol
                     stockList.push(stockName)
                 }
 
-                // console.log(stockList, '<<<< stock in ', portfolio)
-
+                // A function that will replace each stock'name with the profit and loss it's making
                 var value = stockList.map(dash)    
-                // console.log(value, 'this is value of ', portfolio)
 
                 Promise.all(value).then(function(data) {
 
-                    // console.log(data)
-
                     var output = (data.reduce(add)).toFixed(2)
-                    // console.log(output, 'this is output')
 
                     if (output > 0) {
                         $(tablebody).append(`<tr class="stock increase"><td class="name">${portfolio}</td><td id='test' class="change">${output}</td>`)
@@ -109,33 +111,25 @@ $(()=>{
                     }
                 })
         
+                // This function will take a stock name and calculate the user's profit and loss of that stock 
                 function dash (stock) {
                     
                     return new Promise ((resolve, reject) => {
 
-                        let data = $.when(getCurrentShares(portfolio, stock)).then(function (data) {
+                        // Each of these fucntions will calculate and return the needed value from the backend
+                        let data = $.when(getCurrentShares(portfolio, stock), getCurrentPrice(stock), getAveragePrice(portfolio, stock)).then(function (CurrentShares, CurrentPrice, AveragePrice) {
 
-                            const currentShares = data
-                            // console.log(currentShares, '<<<< current shares of ', stock, ' in ', portfolio)
-    
-                            $.when(getCurrentPrice(stock)).then(function (data) {
-    
-                                const currentPrice = data;
-                                // console.log(currentPrice, '<<<< current price of ', stock)
-                                
-                                $.when(getAveragePrice(portfolio, stock)).then(function (data) {
-                                    
-                                    const averagePrice = data;
-                                    // console.log(averagePrice, '<<<< average price of ', stock)
-                                    
-                                    const stockProLos = ((currentPrice - averagePrice) * currentShares)
-                                    // console.log(stockProLos, '<<<<<< this is the performance of ', stock, ' from ', portfolio)
+                            const currentShares = CurrentShares
+        
+                            const currentPrice = CurrentPrice;
+                                                                    
+                            const averagePrice = AveragePrice;
 
-                                    resolve(stockProLos);
-                                    // return stockProLos
+                            // This is how you calculate a stock's performance
+                            const stockProLos = ((currentPrice - averagePrice) * currentShares)
 
-                                })
-                            })
+                            resolve(stockProLos);
+
                         })
                     })
                 }

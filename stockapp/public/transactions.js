@@ -7,21 +7,15 @@ $(()=>{
     var amountInput = document.getElementById('amount')
     var submit = document.getElementById('submit')
 
-    console.log(actionSelector)
-    console.log(stockInput)
-    console.log(priceInput)
-    console.log(amountInput)
-    console.log(submit)
-
 
     $(submit).on('click', (event) => {
+
+        // capturing all the values from the form
         var action = $(actionSelector).val()
         var stock = $(stockInput).val()
         var portfolio = $(portfolioInput).val()
         var price = $(priceInput).val()
         var amount = $(amountInput).val()
-
-        // console.log(action, '-----action!!!')
 
         if (action === 'buy') {
             $.ajax({
@@ -57,7 +51,5 @@ $(()=>{
                 }
             })
         }
-
-        // location.reload()
     })
 })

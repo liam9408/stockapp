@@ -3,6 +3,7 @@ class StockService {
         this.knex = knex;
     }
 
+    // list all stocks in the database
     listAllStocks () {
         return new Promise ((resolve, reject) => {
             let data = this.knex('stocks')
@@ -21,6 +22,7 @@ class StockService {
         })
     }
 
+    // list the wachlisted stocks of the user
     listWatchlist (user) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks')
@@ -40,6 +42,7 @@ class StockService {
         })
     }
 
+    // list the portfolios under the user's name
     getPortfolio (user) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfolios')
@@ -59,6 +62,7 @@ class StockService {
         })
     }
 
+    // get the ID of the portfolio
     getPortfolioID (param) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfolios').where({name:param})
@@ -73,6 +77,7 @@ class StockService {
         })
     }
 
+    // get the list of stocks under a portfolio
     getHoldings (user, portfolio) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
@@ -95,6 +100,7 @@ class StockService {
         })
     }
 
+    // add buy OR sell records of a stock
     addBuy (portfolioID, stock, userID, action, amount, price ) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks').insert({
@@ -113,6 +119,7 @@ class StockService {
         })
     }
 
+    // add a stock into our database (mainly for checking purposes)
     addStock (param) {
         return new Promise (async (resolve, reject) => {
             let data = await this.knex('stocks').where({
@@ -133,12 +140,14 @@ class StockService {
         })
     }
 
+    // add stock to watchlist
     addWatchlist (user, stock) {
         return new Promise (async (resolve, reject) => {
             let data = await this.knex('userstocks').where({
                 user_id: user,
                 stocks_symbol: stock
             })
+            // if the stock hasn't been inserted, insert it to the watchlist
             if (data.length === 0) {
                 return this.knex('userstocks').insert({
                     user_id: user,
@@ -149,12 +158,14 @@ class StockService {
                     resolve('YES')
                 })
             }
+            // if the stock already exists in the watchlist, do nothing
             else {
                 resolve('NO')
             }
         })
     }
 
+    // delete stock from watchlist
     delWatchlist (user, stock) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('userstocks').where({
@@ -169,12 +180,14 @@ class StockService {
         })
     }
 
+    // add portfolio
     addPortfolio (user, portfolio) {
         return new Promise (async (resolve, reject) => {
             let data = await this.knex('portfolios').where({
                 user_id: user,
                 name: portfolio
             })
+            // if the portfolio hasn't been created, create it
             if (data.length === 0) {
                 return this.knex('portfolios').insert({
                     user_id: user,
@@ -185,26 +198,14 @@ class StockService {
                     resolve('YES')
                 })
             }
+            // if the portfolio already exists, do nothing
             else {
                 resolve('NO')
             }
         })
     }
 
-    // delPortfolio (user, portfolio) {
-    //     return new Promise ((resolve, reject) => {
-    //         let data = this.knex('portfolios').where({
-    //             user_id: user,
-    //             name: portfolio
-    //         }).del()
-
-    //         data.then((res) => {
-    //             console.log('deleted ', portfolio, ' from portfolios')
-    //             resolve('data deleted')
-    //         })
-    //     })
-    // }
-
+    // delete portfolio
     delPortfolio (user, portfolio) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfolios')
@@ -240,6 +241,7 @@ class StockService {
         })
     }
 
+    // calculate the number of shares a user has on a stock and return the average price of each purchase
     getAveragePrice (portfolio, stock) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
@@ -269,6 +271,7 @@ class StockService {
         })
     }
 
+    // list all stocks a user has 
     listPortfolioStocks (user, portfolio) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
@@ -292,6 +295,7 @@ class StockService {
         })
     }
 
+    // calcualte how many shares of a stock user currently has
     getCurrentShares (portfolio, stock) {
         return new Promise ((resolve, reject) => {
             let data = this.knex('portfoliostocks')
@@ -303,6 +307,7 @@ class StockService {
             .where('portfolios.name', portfolio)
             .where('portfoliostocks.stocks_symbol', stock)
 
+            // add all the transactions amounts together, because if the action was 'sold' a negative number will be added to the database
             data.then((res) => {
                 var totalSales= []
                 for (let each of res) {

@@ -1,16 +1,6 @@
 $(()=>{
 
     var stockInput = document.getElementById('addWatchlist')
-    var submit = document.getElementById('watchlistSubmit')
-    var form = document.getElementById('watchlistForm')
-
-    var stockInput = document.getElementById('addWatchlist')
-    var del = document.getElementById('watchlistDelete')
-
-    console.log(stockInput)
-    console.log(submit)
-    console.log(del)
-    console.log(form)
 
     $('#add').click(function() {
         var stock = $(stockInput).val()

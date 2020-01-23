@@ -3,6 +3,8 @@ $(()=>{
     const tablebody = document.getElementById('holdingsBody')
     const apiKey = 'pk_33ba44994cf3468bb0e0aa9487c9b22b'
 
+    // Declaring all needed functions
+
     const listPortfolioStocks = (portfolio) => {
         return new Promise ((resolve, reject) => {
             let data = $.get(`https://localhost:3030/api/portfoliostocks/${portfolio}`)
@@ -44,31 +46,28 @@ $(()=>{
 
 
     $.when(getPortfolio()).then((data) => {
-
+        
+        // Got a list of user's portfolio
         for (let name of data) {
 
             const portfolio = name.name
             const id = name.id
-            // console.log(portfolio, '<<<< portfolio name and ', id)
 
+            // Get list of stocks under each portfolio
             $.when(listPortfolioStocks(portfolio)).then((data) => {
 
                 for (let symbol of data) {
 
                     const stock = symbol.stocks_symbol
-                    // console.log(stock, '<<<< current stock of ', portfolio)
 
+                    // Getting the market data for each stock
                     $.when(getData(stock)).then((data) => {
 
-                        let stockPriceLatest = (data['quote']['open']);
-                        let stockPricePrevious = (data['quote']['previousClose']);
+                        let stockPriceLatest = data.quote.change;
 
-                        // console.log(stockPriceLatest, '<<< latest price of ', stock, ' in ', portfolio)
-                        // console.log(stockPricePrevious, '<<< previous closing price of ', stock, ' in ', portfolio)
+                        let priceChange = data.quote.change
 
-                        let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2)
-
-                        let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
+                        let percentageChange = data.quote.changePercent
 
                         if (percentageChange > 0) {
                         $(`#${id}`).append(`<tr class="stock increase"><td class="name"><a href="/stockinfo/${stock}">${stock}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
@@ -79,7 +78,6 @@ $(()=>{
                     })
                     
                 }
-                // console.log('break')
                 
             })
 

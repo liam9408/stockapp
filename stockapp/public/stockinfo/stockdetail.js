@@ -61,8 +61,6 @@ $(()=>{
 
     $.when(getData(stock)).then((data) => {
 
-        // console.log(data)
-
         // Stock detail info
 
         $(currentPrice).html(`$${data.quote.close}`)
@@ -134,38 +132,17 @@ $(()=>{
 
         for (let entry of charts) {
             coordinates.push(entry.close)
-            // dates.push(entry.date)
         }
-
-        // for (var i = 0; i < 6; i++) {
-        //     // console.log(entry.close)
-        //     console.log(charts[i].close)
-        //     coordinates.push(charts[i].close)
-        //     // coordinates.push(entry.close)
-        // }
-
-        // console.log(coordinates)
-
-        // for (var i = 0; i < 6; i++) {
-        //     dates.push(charts[i].date)
-        //     // coordinates.push(entry.close)
-        // }
 
         for (var i = charts.length - 5; i < charts.length; i++) {
             dates.push(charts[i].date)
-            // coordinates.push(entry.close)
         }
-
-        // console.log(coordinates)
-        // console.log(dates)
 
         var Max = (Math.max(...coordinates))
         var Min = (Math.min(...coordinates))
 
         var yMax = Math.round(Max + (Max * 0.05))
         var yMin = Math.round(Min - (Min * 0.05))
-
-        // console.log(yMin, yMax)
 
         var ctx = document.getElementById('myChart');
         var myChart = new Chart(ctx, {
@@ -242,7 +219,6 @@ $(()=>{
             myChart.update()
 
         })
-
 
         // News
 
