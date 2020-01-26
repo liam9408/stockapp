@@ -275,7 +275,61 @@ Stock Details
 ===================================================================
 */
 
-.increase {
+/* .column {
+  display: flex;
+  flex-direction: column;
+} */
+
+/* .row {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+#spacer2 {
+  width: 100px;
+  height: 5px;
+} */
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color: rgb(247, 247, 247);
+  width: 300px;
+  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgb(184, 184, 184)
+}
+
+.info {
+  margin: 0;
+}
+
+.stockInfoBody {
+  display: flex;
+  flex-direction: row;
+}
+ 
+.increasse {
   color: green;
 }
 
@@ -340,3 +394,4 @@ Stock Details
 .texts {
   padding-left: 20px;
 }
+
