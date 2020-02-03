@@ -7,7 +7,8 @@ $(()=>{
 
     const listPortfolioStocks = (portfolio) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/portfoliostocks/${portfolio}`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/portfoliostocks/" + portfolio)
+            // let data = $.get("https:/" + "/localhost:3030/api/portfoliostocks/" + portfolio)
         
             data.then((res) => {
                 resolve(res)
@@ -20,7 +21,7 @@ $(()=>{
 
     const getData = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+            let data = $.get("https:/" + "/cloud.iexapis.com/stable/stock/" + stockName + "/batch?types=quote,news,chart&range=1m&last=10&token=" + apiKey)
         
             data.then((res) => {
                 resolve(res)
@@ -33,7 +34,8 @@ $(()=>{
 
     const getPortfolio = () => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/listportfolio`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/listportfolio")
+            // let data = $.get("https:/" + "/localhost:3030/api/listportfolio")
 
             data.then((res) => {
                 resolve(res)
@@ -70,10 +72,10 @@ $(()=>{
                         let percentageChange = data.quote.changePercent
 
                         if (percentageChange > 0) {
-                        $(`#${id}`).append(`<tr class="stock increase"><td class="name"><a href="/stockinfo/${stock}">${stock}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+                        $(`#${id}`).append(`<tr class="stock increase"><td class="name"><a class="stockName" href="/stockinfo/${stock}">${stock}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
             
                         } else if (percentageChange < 0) {
-                        $(`#${id}`).append(`<tr class="stock decrease"><td class="name"><a href="/stockinfo/${stock}">${stock}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+                        $(`#${id}`).append(`<tr class="stock decrease"><td class="name"><a class="stockName" href="/stockinfo/${stock}">${stock}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
                         } 
                     })
                     

@@ -7,7 +7,7 @@ $(()=>{
 
     const getData = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+            let data = $.get(`https:/` + `/cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
         
             data.then((res) => {
                 resolve(res)
@@ -20,7 +20,8 @@ $(()=>{
 
     const getWatchlist = () => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/getwatchlist`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/getwatchlist")
+            // let data = $.get("https:/" + "/localhost:3030/api/getwatchlist")
             
             data.then((res) => {
                 resolve(res)
@@ -40,10 +41,12 @@ $(()=>{
 
             $.when(getData(name.symbol)).then(function (data) {
 
+                
                 // get stock prices            
                 let stockPriceLatest = (data['quote']['open']);
                 let stockPricePrevious = (data['quote']['previousClose']);
-
+                // let latestPrice = (data['quote']['latestPrice']);
+                
                 // get price difference 
                 let priceChange = (stockPriceLatest - stockPricePrevious).toFixed(2);
 
@@ -51,10 +54,10 @@ $(()=>{
                 let percentageChange = ((priceChange/stockPricePrevious) * 100).toFixed(2);
 
                 if (percentageChange > 0) {
-                $(tablebody).append(`<tr class="stock increase"><td class="name"><a href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
+                $(tablebody).append(`<tr class="stock increase"><td class="name"><a class="stockName" href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">+${percentageChange}%</td>`)
 
                 } else if (percentageChange < 0) {
-                $(tablebody).append(`<tr class="stock decrease"><td class="name"><a href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
+                $(tablebody).append(`<tr class="stock decrease"><td class="name"><a class="stockName" href="/stockinfo/${name.symbol}">${name.symbol}</a></td><td class="value">$${stockPriceLatest}</td><td class="change">${priceChange}</td><td class="percentage">-${percentageChange}%</td>`)
                 } 
             })
         }

@@ -1,136 +1,375 @@
-<h2 id="stockName">{{data}}</h2>
-<h2 id='currentPrice'></h2>
+{{> sidenav}}
+<div class="contentMainBody">
 
-<div class="stockInfoBody">
-    <div class="column">
-        <div class="text-container">
-            <h4 class="title">Company Name</h4>
-            <h5 class="info" id="companyName">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Latest Time</h4>
-            <h5 class="info" id="latestTime">test</h5>   
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Open Time</h4>
-            <h5 class="info" id="openTime">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Close Time</h4>
-            <h5 class="info" id="closeTime">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Low</h4>
-            <h5 class="info" id="low">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Change</h4>
-            <h5 class="info" id="change">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Market Cap</h4>
-            <h5 class="info" id="marketCap">test</h5>
-        </div>
-
-
-
-        <div class="text-container">
-            <h4 class="title">Week 52 High</h4>
-            <h5 class="info" id="52High">test</h5>
-        </div>
-
-
-        <div class="text-container">
-            <h4 class="title">Market Open</h4>
-            <h5 class="info" id="marketOpen">test</h5>
-        </div>
+{{!-- <div class="tableBlock">
+        <h2 id="stockName">AAPL</h2>
+        <h2 id="currentPrice" class="decrease">$323.87</h2>
     </div>
 
-
-    <div class="column">
-        <div class="text-container">
-            <h4 class="title">Primary Exchange</h4>
-            <h5 class="info" id="primaryExchange">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">Open</h4>
-            <h5 class="info" id="openPrice">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">Close</h4>
-            <h5 class="info" id="closePrice">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">High</h4>
-            <h5 class="info" id="high">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">Previous Close</h4>
-            <h5 class="info" id="previousClose">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">Change Percentage</h4>
-            <h5 class="info" id="changePercentage">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">P/E Ratio</h4>
-            <h5 class="info" id="peRatio">test</h5>
-        </div>
-        <div class="text-container">
-            <h4 class="title">Week 52 Low</h4>
-            <h5 class="info" id="52Low">test</h5>
-        </div>
-    </div>
-
-</div>
-
-
-
-
-<canvas id="myChart" width="1000" height="400"></canvas>
-
-<button id="fiveDays">5 days</button>
-<button id="oneMonth">1 month</button>
-{{!-- <button id="removedates">Remove dates</button> --}}
-
-
-<h2>News</h2>
-<div id="newsArea">
-{{!-- 
-    <div class="newsBlock">
-        <div class="detailCrop">
-            <img src="${image}">
-        </div>
-        <div class="texts">
-            <a href="${url}"></a>
-                <h4 class="newsHeadline">Historically adjusted market-wide data All available data up to 15 years</h4>
-            </a>
-            <div class="publisher">
-                <h5 class="source">The New York Times</h5>
-                <div id="spacer"></div>
-                <h5 class="dateTime">201923324</h5>
+    <div class="stockInfoBody">
+        <div class="column">
+            <div class="text-container">
+                <h4 class="title">Company Name</h4>
+                <h5 class="info" id="companyName">Apple, Inc.</h5>
             </div>
-            <h5 class="summary">In addition to informing us about the likelihood of reversals, liquidity shocks themselves can signal information about short horizon returns.</h5>
+            <div class="text-container">
+                <h4 class="title">Latest Time</h4>
+                <h5 class="info" id="latestTime">January 30, 2020</h5>   
+            </div>
+            <div class="text-container">
+                <h4 class="title">Open Time</h4>
+                <h5 class="info" id="openTime">Thu Jan 30 2020 22:30:00 GMT+0800 (Hong Kong Standard Time)</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Close Time</h4>
+                <h5 class="info" id="closeTime">Fri Jan 31 2020 05:00:00 GMT+0800 (Hong Kong Standard Time)</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Low</h4>
+                <h5 class="info" id="low">$318.75</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Change</h4>
+                <h5 class="info decrease" id="change">-0.47</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Market Cap</h4>
+                <h5 class="info" id="marketCap">1.4Tr</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Week 52 High</h4>
+                <h5 class="info" id="52High">$327.85</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Market Open</h4>
+                <h5 class="info increase" id="marketOpen">Yes</h5>
+            </div>
         </div>
-    </div> 
-    --}}
+    
 
+        <div class="column">
+            <div class="text-container">
+                <h4 class="title">Primary Exchange</h4>
+                <h5 class="info" id="primaryExchange">NASDAQ</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Open</h4>
+                <h5 class="info decrease" id="openPrice">$320.67</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Close</h4>
+                <h5 class="info decrease" id="closePrice">$323.87</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">High</h4>
+                <h5 class="info" id="high">$324.09</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Previous Close</h4>
+                <h5 class="info" id="previousClose">$324.34</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Change Percentage</h4>
+                <h5 class="info decrease" id="changePercentage">-0.00145%</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">P/E Ratio</h4>
+                <h5 class="info" id="peRatio">25.39</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Week 52 Low</h4>
+                <h5 class="info" id="52Low">$160.23</h5>
+            </div>
+        </div>
+    </div>
+
+
+<div class="tableBlock">
+        <canvas id="myChart" width="2440" height="976" style="display: block; height: 488px; width: 1220px;" class="chartjs-render-monitor"></canvas>
+
+        <button id="fiveDays">5 days</button>
+        <button id="oneMonth">1 month</button>
+    </div>
+
+
+        <div class="spaceBlock100"></div>
+
+
+    <h2>News</h2>
+    <div id="newsArea">
+
+    
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/89680ea5-d938-4173-97fd-cec779b53f9b">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/89680ea5-d938-4173-97fd-cec779b53f9b">
+                        <h4 class="newsHeadline">Now that the Apple Maps redesign is complete, here are 6 more things it needs</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Macworld</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 19:15:00 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">If you haven’t had a reason to open Apple Maps in the past day or so, you’re in for a treat . Apple has completely revamped Maps across the United States, with vivid detail, better...</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/bcf64a24-c78a-406c-afe7-6be57d911779">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/bcf64a24-c78a-406c-afe7-6be57d911779">
+                        <h4 class="newsHeadline">In the streaming wars, everyone is winning</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">VentureBeat</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 19:12:22 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Apple, Netflix, Disney and Amazon can all claim success with their video streaming efforts thanks to their different goals.</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/c1f3d4a2-30d2-4af6-a6cd-5474fd0a34b9">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/c1f3d4a2-30d2-4af6-a6cd-5474fd0a34b9">
+                        <h4 class="newsHeadline">EU Lawmakers Vote Overwhelmingly in Favor of Charging Cable Standard, Despite Apple's Protestations</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Mac Rumors</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 18:27:28 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Despite criticism from Apple, EU lawmakers on Thursday voted overwhelmingly in favor for new rules to establish a common charger for all mobile device makers across Europe (via Reu...</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/545e10c3-8000-47ae-ae7f-6759be36e5ed">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/545e10c3-8000-47ae-ae7f-6759be36e5ed">
+                        <h4 class="newsHeadline">Apple supplier Japan Display gets $920 million bailout from Ichigo</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Reuters UK</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 17:41:43 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Japan Display Inc &lt;6740.T&gt; said on Friday it had sealed a deal to receive up to 100.8 billion yen ($918.87 million) from Ichigo Asset Management, a critical bailout for the Apple s...</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/b11ec954-0d46-4fe2-9fdd-b09048576a12">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/b11ec954-0d46-4fe2-9fdd-b09048576a12">
+                        <h4 class="newsHeadline">Apple supplier Japan Display seals $920 million bailout from Ichigo</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Reuters</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 17:11:52 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Japan Display Inc &lt;6740.T&gt; said on Friday it sealed a deal to receive up to 100.8 billion yen ($918.87 million) from Ichigo Asset Management, a critical bailout for the Apple suppl...</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/08837896-7274-46d6-ac81-f4d73369423c">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/08837896-7274-46d6-ac81-f4d73369423c">
+                        <h4 class="newsHeadline">Apple unveils revamped map app to challenge Google - ET CIO</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Economic Times, The</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 16:41:51 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Apple on Thursday said it has finished rolling out an overhauled map app in the US in another attempt to challenge Google's popular smartphone navigat..</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/f4e2b445-86b9-4644-a72e-8029cdc3fbf9">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/f4e2b445-86b9-4644-a72e-8029cdc3fbf9">
+                        <h4 class="newsHeadline">Apple unveils revamped map app to challenge Google - ET Telecom</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">Telecom News</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 16:30:14 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">Apple on Thursday said it has finished rolling out an overhauled map app in the US in another attempt to challenge Google's popular smartphone navigat..</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/bd412dd2-bacc-4ef0-9300-952b0695279e">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/bd412dd2-bacc-4ef0-9300-952b0695279e">
+                        <h4 class="newsHeadline">The best apps to get fit with your friends: from Fitbit to Strava</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">The Guardian</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 15:00:39 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">We look at fitness communities to keep you on track, and devices from Apple, Garmin and others It’s February and your New Year’s resolution to get healthier you is starting to flag...</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/40e483c0-7170-4cf4-a8cb-f7e473d7eb74">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/40e483c0-7170-4cf4-a8cb-f7e473d7eb74">
+                        <h4 class="newsHeadline">Huawei beats Apple in global smartphone output | NHK WORLD-JAPAN News</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">NHK online</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 12:12:23 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">A US research firm says Huawei overtook Apple last year to become the world's second-largest smartphone manufacturer.</h5>
+                </div>
+            </div>
+                <div class="newsBlock">
+                <div class="detailCrop">
+                    <img src="https://cloud.iexapis.com/v1/news/image/0b0c44a7-53cd-43fe-ac75-7e44d3e63c0d">
+                </div>
+                <div class="texts">
+                    <a href="https://cloud.iexapis.com/v1/news/article/0b0c44a7-53cd-43fe-ac75-7e44d3e63c0d">
+                        <h4 class="newsHeadline">Chip maker SK Hynix posts 95 percent quarterly profit plunge</h4>
+                    </a>
+                    <div class="publisher">
+                        <h5 class="source">The Sun Daily</h5>
+                        <div id="spacer"></div>
+                        <h5 class="dateTime">Fri Jan 31 2020 11:34:00 GMT+0800 (Hong Kong Standard Time)</h5>
+                    </div>
+                    <h5 class="summary">SEOUL: The world’s second-largest memory chip maker, South Korea’s SK Hynix, posted a 95 percent quarterly profit plunge on Friday as it suffers from a long-running lull in the glo...</h5>
+                </div>
+            </div></div>
+
+
+
+
+
+
+
+
+
+
+ --}}
+
+
+
+
+    <div class="tableBlock">
+        <h2 id="stockName">{{data}}</h2>
+        <h2 id='currentPrice'></h2>
+    </div>
+
+    <div class="stockInfoBody">
+        <div class="column">
+            <div class="text-container">
+                <h4 class="title">Company Name</h4>
+                <h5 class="info" id="companyName">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Latest Time</h4>
+                <h5 class="info" id="latestTime">test</h5>   
+            </div>
+            <div class="text-container">
+                <h4 class="title">Open Time</h4>
+                <h5 class="info" id="openTime">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Close Time</h4>
+                <h5 class="info" id="closeTime">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Low</h4>
+                <h5 class="info" id="low">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Change</h4>
+                <h5 class="info" id="change">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Market Cap</h4>
+                <h5 class="info" id="marketCap">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Week 52 High</h4>
+                <h5 class="info" id="52High">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Market Open</h4>
+                <h5 class="info" id="marketOpen">test</h5>
+            </div>
+        </div>
+
+
+        <div class="column">
+            <div class="text-container">
+                <h4 class="title">Primary Exchange</h4>
+                <h5 class="info" id="primaryExchange">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Open</h4>
+                <h5 class="info" id="openPrice">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Close</h4>
+                <h5 class="info" id="closePrice">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">High</h4>
+                <h5 class="info" id="high">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Previous Close</h4>
+                <h5 class="info" id="previousClose">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Change Percentage</h4>
+                <h5 class="info" id="changePercentage">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">P/E Ratio</h4>
+                <h5 class="info" id="peRatio">test</h5>
+            </div>
+            <div class="text-container">
+                <h4 class="title">Week 52 Low</h4>
+                <h5 class="info" id="52Low">test</h5>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tableBlock">
+        <canvas id="myChart" width="1000" height="400"></canvas>
+
+        <button id="fiveDays">5 days</button>
+        <button id="oneMonth">1 month</button>
+        {{!-- <button id="removedates">Remove dates</button> --}}
+    </div>
+
+    <div class="spaceBlock100"></div>
+
+    <h2>News</h2>
+    <div id="newsArea">
+
+
+    </div>
 </div>

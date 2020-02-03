@@ -258,7 +258,7 @@ class StockService {
                 var totalBuy= 0;
                 var totalShares = 0;
                 for (let each of res) {
-                    totalBuy += each.price*each.amount;
+                    totalBuy += each.price * each.amount;
                     totalShares += each.amount;
                 }
                 var average = totalBuy/totalShares

@@ -2,7 +2,8 @@ $(()=>{
 
     const listAllStocks = () => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/listallstocks`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/listallstocks")
+            // let data = $.get("https:/" + "/localhost:3030/api/listallstocks")
             
             data.then((res) => {
                 resolve(res)

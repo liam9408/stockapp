@@ -14,7 +14,8 @@ $(()=>{
 
     const getWatchlist = () => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/getwatchlist`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/getwatchlist")
+            // let data = $.get("https:/" + "/localhost:3030/api/getwatchlist")
             
             data.then((res) => {
                 resolve(res)
@@ -28,7 +29,7 @@ $(()=>{
 
     const getNews = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+            let data = $.get("https:/" + "/cloud.iexapis.com/stable/stock/" + stockName + "/batch?types=quote,news,chart&range=1m&last=10&token=" + apiKey)
         
             data.then((res) => {
 

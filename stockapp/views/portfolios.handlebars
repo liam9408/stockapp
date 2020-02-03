@@ -1,3 +1,6 @@
+
+        {{> sidenav}}
+<div class="contentMainBody">
 <h1>Portfolios</h1>
 
 <h3>Portfolios of {{user}}</h3>
@@ -10,36 +13,36 @@
 <div>
     <label>Edit Portfolios</label>
     <input id="portfolioName" type="text" name="portfolio" />
-</div>
-<div>
-    <button id='portfolioSubmit'>Create New</button>
-
-    <button id='portfolioDelete'>Delete</button>
+{{!-- </div>
+<div> --}}
+    <button class="buttonsBlue" id='portfolioSubmit'>Create New</button>
+    <button class="buttonsBlue" id='portfolioDelete'>Delete</button>
 </div>
 
 {{#each portfolio}}
 {{!-- <a class='{{name}}' href='/holdings/{{name}}'>{{name}}</a> --}}
+
 <div class="tables">
-    <div id="portfolios">
-        <table class="watchlist tablesorter">
-            <h3>{{name}}</h3>
-            <thead>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Change</th>
-                <th>%</th>
-            </thead>
-            <tbody id="{{id}}">
-                    {{!-- {{#each data}}
-                    <tr class="stock increase"><td class="name">{{symbol}}</td></tr>
-                    {{/each}} --}}
+    <div class="tableBlock">
+        <div id="portfolios">
+            <table class="watchlist tablesorter">
+                <h3 id="watchlistTitle">{{name}}</h3>
+                <thead>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Change</th>
+                    <th>%</th>
+                </thead>
+                <tbody id="{{id}}">
 
+                        {{!-- <tr class="stock increase"><td class="name"><a class="stockName" href="/stockinfo/AMZN">AMZN</a></td><td class="value">$12.68</td><td class="change">12.68</td><td class="percentage">+0.00682%</td></tr>
+                        <tr class="stock increase"><td class="name"><a class="stockName" href="/stockinfo/AMZN">AMZN</a></td><td class="value">$12.68</td><td class="change">12.68</td><td class="percentage">+0.00682%</td></tr>
+                        <tr class="stock increase"><td class="name"><a class="stockName" href="/stockinfo/AMZN">AMZN</a></td><td class="value">$12.68</td><td class="change">12.68</td><td class="percentage">+0.00682%</td></tr> --}}
 
-                    {{!-- {{#each data}}
-                    <tr class="stock increase"><td class="name">{{symbol}}</td><td class="value">test</td><td class="change">test</td><td class="percentage">test</td></tr>
-                    {{/each}} --}}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {{/each}}
+</div>

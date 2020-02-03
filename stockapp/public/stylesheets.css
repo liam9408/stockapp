@@ -34,18 +34,203 @@ LAYOUT
 ===================================================================
 */
 
+body {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .main-layout {
   display: flex;
   flex-direction: row;
 }
 
 .navigation {
-  width: 15vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(30, 76, 228);
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 15vw; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
 }
+
+
+
+
+
+.landing-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.decoration {
+  width: 55%;
+  height: 100vh;
+  background-color: blue;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  border: 0;
+  outline: 0;
+}
+
+.image {
+  width:100%; 
+  height:100%; 
+  /* object-fit: contain; */
+  /* background-image:url('./images/john-rodenn-castillo-eluzJSfkNCk-unsplash.jpg'); */
+  background-size: cover;
+}
+
+
+#navitems {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 75%;
+  height: 150px;
+}
+
+.navitem {
+  color: white;
+  list-style: none;
+  text-decoration: none;
+}
+
+/* .navitem:hover {
+  transform: translateX(10%)
+} */
+
+.content {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+
+}
+
+#loginContainer {
+  width: 45%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  flex-direction: column;
+  border: 0;
+  outline: 0;
+}
+
+#loginBody {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginLabel {
+  font-size: 12px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgb(87, 87, 87)
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 300px;
+}
+
+.fbLogin {
+  border: 1px solid #4267B2;
+  background-color: #4267B2;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  width: 300px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.fbLogin:hover {
+  background-color: rgb(37, 81, 170);
+  transition: 0.9s;
+}
+
+.gogLogin {
+  border: 1px solid #DB4437;
+  background-color: #DB4437;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  width: 300px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.gogLogin:hover {
+  background-color: rgb(209, 37, 37);
+  transition: 0.9s;
+}
+
+#loginSignup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#noAccount {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.signupTag {
+  text-decoration: none;
+  margin-left: 5px;
+  font-size: 13px;
+  color: dodgerblue
+}
+
+.signupTag:hover {
+  color: rgb(6, 119, 231);
+  transition: 0.2s;
+}
+
+.spaceBlock150 {
+  height: 150px;
+}
+
+.contentMainBody {
+  margin-left: 17vw; 
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 12px;
+}
+
+
+
+
 
 .mainBody {
   display: flex;
@@ -61,6 +246,7 @@ button {
 .main-body {
   display: flex;
   flex-direction: column;
+  /* width: 45%; */
 }
 
 .header {
@@ -81,11 +267,46 @@ DASHBOARD
   flex-direction: row;
 }
 
+.tableBlock {
+  width: auto;
+  background-color: white;
+  padding: 30px;
+  margin-top: 30px;
+  margin-right: 30px;
+  -webkit-box-shadow: 4px 4px 45px 2px rgba(0,0,0,0.08);
+  -moz-box-shadow: 4px 4px 45px 2px rgba(0,0,0,0.08);
+  box-shadow: 4px 4px 45px 2px rgba(0,0,0,0.08);
+}
+
+#watchlist {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  align-self: flex-start;
+}
+
+#portfolio {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+
+
 /*
 ===================================================================
 WATCHLIST
 ===================================================================
 */
+
+  .stockName {
+  text-decoration: none;
+  }
+
+  #watchlistTitle {
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
 
   body {
     font-size:1em;
@@ -94,10 +315,9 @@ WATCHLIST
   }
 
   table {
-    margin:auto;
+    /* margin:auto; */
     width:500px;
     border-collapse:collapse;
-    margin-right: 20px;
   }
 
   th, td {
@@ -176,16 +396,6 @@ NEWS
   margin-bottom:10px;
 }
 
-/* img {
-  max-width: 100%;
-  max-height: 100%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  
-  display: block;
-} */
-
 .crop {
   width: 100%;
   height: 250px;
@@ -254,12 +464,28 @@ body {
 input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
 }
 
 input[type=text] {
-  background-color: #f1f1f1;
+  background-color: rgb(253, 253, 253) !important;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 4px;
+  /* width: 100%; */
+}
+
+input[type=password] {
+  background-color: rgb(253, 253, 253) !important;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 4px;
+  /* width: 100%; */
+}
+
+input[type=number] {
+  background-color: rgb(253, 253, 253) !important;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 4px;
   /* width: 100%; */
 }
 
@@ -267,6 +493,12 @@ input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(0, 123, 247);
+  transition: 0.2s;
 }
 
 .autocomplete-items {
@@ -298,3 +530,31 @@ input[type=submit] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+#addWatchlist {
+  width: 300px;
+}
+
+.buttonsBlue {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 12px;
+  font-size: 16px;
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

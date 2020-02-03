@@ -35,7 +35,7 @@ $(()=>{
 
     const getData = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+            let data = $.get("https:/" + "/cloud.iexapis.com/stable/stock/" + stockName + "/batch?types=quote,news,chart&range=1m&last=10&token=" + apiKey)
         
             data.then((res) => {
                 resolve(res)
@@ -48,7 +48,7 @@ $(()=>{
 
     const test = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/chart/max?&token=${apiKey}`)
+            let data = $.get("https:/" + "/cloud.iexapis.com/stable/stock/" + stockName + "/chart/max?&token=" + apiKey)
         
             data.then((res) => {
                 resolve(res)

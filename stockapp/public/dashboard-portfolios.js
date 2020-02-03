@@ -11,7 +11,8 @@ $(()=>{
 
     const getPortfolio = () => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/listportfolio`)
+            // let data = $.get("https:/" + "/harryhindsight.com/api/listportfolio")
+            let data = $.get("https:/" + "/localhost:3030/api/listportfolio")
 
             data.then((res) => {
                 resolve(res)
@@ -24,7 +25,7 @@ $(()=>{
 
     const getCurrentPrice = (stockName) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://cloud.iexapis.com/stable/stock/${stockName}/batch?types=quote,news,chart&range=1m&last=10&token=${apiKey}`)
+            let data = $.get("https:/" + "/cloud.iexapis.com/stable/stock/" + stockName + "/batch?types=quote,news,chart&range=1m&last=10&token=" + apiKey)
         
             data.then((res) => {
                 resolve(res['quote']['close'])
@@ -37,7 +38,8 @@ $(()=>{
 
     const listPortfolioStocks = (portfolio) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/portfoliostocks/${portfolio}`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/portfoliostocks/" + portfolio)
+            // let data = $.get("https:/" + "/localhost:3030/api/portfoliostocks/" + portfolio)
         
             data.then((res) => {
                 resolve(res)
@@ -50,7 +52,8 @@ $(()=>{
 
     const getCurrentShares = (portfolio, stock) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/currentshares/${portfolio}/${stock}`)
+           let data = $.get("https:/" + "/harryhindsight.com/api/currentshares/" + portfolio + "/" + stock)
+            // let data = $.get("https:/" + "/localhost:3030/api/currentshares/" + portfolio + "/" + stock)
         
             data.then((res) => {
                 resolve(res)
@@ -63,7 +66,9 @@ $(()=>{
 
     const getAveragePrice = (portfolio, stock) => {
         return new Promise ((resolve, reject) => {
-            let data = $.get(`https://localhost:3030/api/averageprice/${portfolio}/${stock}`)
+            let data = $.get("https:/" + "/harryhindsight.com/api/averageprice/" + portfolio + "/" + stock)
+            // let data = $.get("https:/" + "/localhost:3030/api/averageprice/" + portfolio + "/" + stock)
+
 
             data.then((res) => {
                 resolve(res)

@@ -15,7 +15,7 @@ module.exports = (express) => {
             return next();
         }
         // if not logged in, redirect to the landing page
-        res.render('landing');
+        res.render('login');
     }
     
     // whenever we try to access this route, it checks if the user is logged in or not
@@ -94,7 +94,7 @@ module.exports = (express) => {
             // finally adding the transaction into our database
             return stockService.getAveragePrice(req.params.stock, req.params.id, porfId)
             .then((data) => {
-                console.log(data, '<<<<<< data')
+                // console.log(data, '<<<<<< data')
                 res.render('test', {data: data})
             })
             .catch((err) => res.status(500).json(err));
@@ -109,7 +109,7 @@ module.exports = (express) => {
 
     // stock page
     router.get('/stockinfo/:stock', isLoggedIn, (req, res) => {
-        console.log(req.params.stock)
+        // console.log(req.params.stock)
         res.render('stockinfo', {data: req.params.stock})
     });
 

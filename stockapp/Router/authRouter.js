@@ -13,10 +13,14 @@ module.exports = (express) => {
             return next();
         }
         // if not logged in, redirect to the landing page
-        res.render('landing');
+        res.render('login');
     }
 
     router.get('/', isLoggedIn, (req, res) => {
+        res.render('dashboard')
+    })
+
+    router.get('/login', isLoggedIn, (req, res) => {
         res.render('dashboard')
     })
 

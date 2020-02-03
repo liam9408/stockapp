@@ -1,4 +1,4 @@
-<h1>SIGN UP</h1>
+{{!-- <h1>SIGN UP</h1>
 
 <form action="/signup" method="post">
     <div>
@@ -16,10 +16,47 @@
     <div>
         <input type="submit" value="Sign up" />
     </div>
-</form>
+</form> --}}
 
-<a href="/auth/facebook">Login with Facebook</a>
-<a href="/auth/google">Login with Google</a>
+<div class='landing-layout'>
 
-<h1>Already have account?</h1>
-<a href="/login"><button type="button" name="button">login</button></a>
+
+    <div id="loginContainer">
+        <div class="spaceBlock150"></div>
+        <div id="loginBody">
+
+            <h1>SIGN UP</h1>
+
+            <form action="/signup" method="post">
+                <div class="loginForm">
+                    <label class="loginLabel">Name:</label>
+                    <input type="text" name="name" />
+                </div>
+                <div class="loginForm">
+                    <label class="loginLabel">Username:</label>
+                    <input type="password" name="username" />
+                </div>
+                <div class="loginForm">
+                    <label class="loginLabel">Password:</label>
+                    <input type="password" name="password" />
+                </div>
+                <div class="loginForm">
+                    <input type="submit" value="Sign up" />
+                </div>
+            </form>
+            <a class="fbLogin" href="/auth/facebook">Login with Facebook</a>
+            <a class="gogLogin" href="/auth/google">Login with Google</a>
+        </div>
+
+        <div class="spaceBlock150"></div>
+        
+        <div id="loginSignup">
+            <p id="noAccount">Already have an account?</p>
+            <a class="signupTag" href="/login">Login</a>
+        </div>
+    </div>
+
+    <div class="decoration">
+        <img class="image"></img>
+    </div>
+</div>
