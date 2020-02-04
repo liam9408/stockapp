@@ -41,10 +41,12 @@ module.exports = (express) => {
 
     // using our local signup    
     router.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/dashboard',
         failureRedirect: '/error'
-    }), function(req, res) {
-        res.successRedirect('/dashboard');
-    });
+    }));
+    // , function(req, res) {
+    //     res.successRedirect('/dashboard');
+    // });
 
     // facebook auth
     router.get("/auth/facebook", passport.authenticate('facebook', {

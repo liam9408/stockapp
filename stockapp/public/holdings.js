@@ -65,7 +65,7 @@ $(()=>{
                     // Getting the market data for each stock
                     $.when(getData(stock)).then((data) => {
 
-                        let stockPriceLatest = data.quote.change;
+                        let stockPriceLatest = (data['quote']['open']);
 
                         let priceChange = data.quote.change
 

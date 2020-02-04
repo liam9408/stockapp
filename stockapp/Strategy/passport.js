@@ -8,8 +8,8 @@ const knex = require('knex')({
     client: 'postgresql',
     connection: {
         database: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        password: process.env.PASSWORD
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD
     }
 });
 
@@ -41,14 +41,14 @@ module.exports = (passport) => {
     },
         async (req, email, password, done) => {
             try {
-                let users = await knex('users').where({email:email});
+                let users = await knex('users').where({ email:email });
                 if (users.length > 0) {
                     return done(null, false, { message: 'Email already taken' });
                 }
                 let hash = await bcrypt.hashPassword(password)
                 const newUser = {
-                    name:req.body.name,
-                    email:email,
+                    name: req.body.name,
+                    email: email,
                     password: hash
                 };
                 let userId = await knex('users').insert(newUser).returning('id');
